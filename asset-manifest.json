@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/hollarteju/Alert/static/css/main.0669cbab.css",
-    "main.js": "/hollarteju/Alert/static/js/main.c2fecadc.js",
-    "index.html": "/hollarteju/Alert/index.html",
-    "main.0669cbab.css.map": "/hollarteju/Alert/static/css/main.0669cbab.css.map",
-    "main.c2fecadc.js.map": "/hollarteju/Alert/static/js/main.c2fecadc.js.map"
+    "main.css": "/Alert/static/css/main.0669cbab.css",
+    "main.js": "/Alert/static/js/main.5ed91e02.js",
+    "index.html": "/Alert/index.html",
+    "main.0669cbab.css.map": "/Alert/static/css/main.0669cbab.css.map",
+    "main.5ed91e02.js.map": "/Alert/static/js/main.5ed91e02.js.map"
   },
   "entrypoints": [
     "static/css/main.0669cbab.css",
-    "static/js/main.c2fecadc.js"
+    "static/js/main.5ed91e02.js"
   ]
 }
