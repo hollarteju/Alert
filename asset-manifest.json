@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/alert.git/static/css/main.0669cbab.css",
-    "main.js": "/alert.git/static/js/main.5cc07ce7.js",
-    "index.html": "/alert.git/index.html",
-    "main.0669cbab.css.map": "/alert.git/static/css/main.0669cbab.css.map",
-    "main.5cc07ce7.js.map": "/alert.git/static/js/main.5cc07ce7.js.map"
+    "main.css": "/Alert/static/css/main.0669cbab.css",
+    "main.js": "/Alert/static/js/main.f434df68.js",
+    "index.html": "/Alert/index.html",
+    "main.0669cbab.css.map": "/Alert/static/css/main.0669cbab.css.map",
+    "main.f434df68.js.map": "/Alert/static/js/main.f434df68.js.map"
   },
   "entrypoints": [
     "static/css/main.0669cbab.css",
-    "static/js/main.5cc07ce7.js"
+    "static/js/main.f434df68.js"
   ]
 }
