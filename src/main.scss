@@ -1,0 +1,416 @@
+*{
+    text-decoration: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family:var(--bs-font-sans-serif )
+    }
+
+$container-width:90%;
+$card-border-radius:1rem;
+$car-margin-inline:1.5rem;
+$card-padding-block:1rem;
+$card-background:white;
+$home-background:whitesmoke;
+
+
+.profile-pics{
+    border-radius: 50%;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.profile-pics img{
+    width: 100%;
+    height: 100%;
+}
+
+i{
+    font-size: large;
+    cursor: pointer;
+}
+i:hover{
+    scale: 0.9;
+}
+
+button{
+    padding:0.6rem 1.5rem;
+    border-radius: $card-border-radius !important;
+    font-size:medium;
+    background-color:  #0d6efd;
+    margin-inline: 0.5rem;
+    border: none;
+    font-weight: bold;
+    color: white;
+}
+button:hover{
+    opacity: 0.7;
+}
+
+textarea{
+    overflow: hidden;
+}
+
+
+//end of default properties
+
+.navbar{
+    align-items: center;
+    width: 100%;
+    top: 0;
+    right: 0;
+    position: fixed !important;
+    z-index: 1000;
+    border-bottom: 1px solid black;
+    background-color: $card-background;
+    .container-fluid{
+    width:$container-width;
+    margin: auto;
+    }
+        .search-container{
+            display: flex;
+            background-color: $card-background;
+            border-radius: 0.7rem;
+            box-shadow: 0 0 2px black;
+            margin-top: 0.4rem;
+            align-items: center;
+            height: 1.8rem;
+            overflow: hidden;
+          
+        }
+        .search-container input{
+            position: relative;
+            border: none;
+            outline-color: $card-background;
+            font-size: medium;
+            padding-inline: 0.9rem;
+            width: fit-content;
+        }
+        .dropdown-menu li:nth-child(3) a:hover{
+            background-color: red;
+            color: $card-background;
+        }
+    
+}
+
+.home-container{
+    background-color:$home-background;
+    position: relative;
+    max-width: 100%;
+    background-color: var(--bs-gray-200);
+    padding-bottom: 5rem;
+
+
+    .home-layer{
+    padding-top: 5rem;
+    width: $container-width;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 25% 53% 20%;
+    column-gap: 1%;
+    position: relative;
+    height: fit-content;
+    overflow: hidden;
+    }
+}
+
+.post-field-container{
+    display: block;
+    position: relative;
+    top: 0;
+    height: fit-content;
+    margin-block-start: 0.5rem;
+    border-radius: 0.7rem;
+    width: 100%;
+    align-items: center;
+    
+    
+    .user-profile-conatiner{
+        background-color:$card-background;
+        position: relative;
+        margin-bottom: 0.5rem;
+        position: relative !important;
+        top: 0;
+        height:90%;
+        overflow: visible;
+        border-radius: $card-border-radius;
+        font-weight: bold;
+        width: 100%;
+        align-items: center !important;
+            .user-profile-layer{
+                position: relative;
+                padding:1.5rem 2rem;
+
+                .profile-field-textarea{
+                    width: 90%;
+                    position: relative !important;
+                    height: fit-content;
+                    textarea{
+                        width: 100%;
+                        resize: none;
+                        padding: 0.5rem;
+                        height: 100px;
+                        font-size: medium;
+                        border: none;
+                        outline: none;
+                    }
+                }
+                .post-textarea-icons{
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                    justify-content: right;
+                   
+                    i{
+                        margin: 0.3rem 0.5rem ;
+                        font-size: x-large !important;
+        
+                    }
+                   
+                }
+                .user-message-categories{
+                    select{
+                        width: 9rem;
+                        border-radius: $card-border-radius;
+                        border-bottom:none;
+                        border-top: 0.1px black solid;
+                        cursor: pointer;
+                        outline-color: #0d6efd;
+                        height: 1.5rem;
+                        align-self: center;
+                    }
+                }
+               
+            }
+    }
+    .post-filter{
+        position: relative;
+        width: 100%;
+        background-color: $card-background;
+        border-radius: $card-border-radius;
+        padding-top: 0.6rem;
+        form{
+            display: flex;
+            display: relative;
+            padding-inline: $car-margin-inline;
+            select{
+                width: 9rem;
+                border-radius: $card-border-radius;
+                border-bottom:none;
+                border-top: 0.1px black solid;
+                cursor: pointer;
+                outline-color: #0d6efd;
+                margin-inline-end: 0.5rem;
+
+            }
+
+        }
+        .post-field{
+            @extend .user-profile-conatiner;
+            margin-top: 0.9rem;
+            border-top: 1px solid var(--bs-gray-200);
+            .post-field-categories{
+                ul{
+
+                    li{
+                        margin-left: -0.5rem;
+                        margin-right: 1.4rem;
+                        cursor: pointer;  
+                        padding-bottom: 0.4rem;
+                    }
+                    .post-field-categories-active{
+                        border-bottom: 2px solid #0d6efd;
+                        padding: 0.5rem;
+                        border-top: $card-border-radius
+                    }
+                    .post-field-categories-inactive{
+                        padding: 0.5rem;
+                        border-top: $card-border-radius
+                    }
+                }
+            }
+        }
+    }
+
+
+   
+
+    .post-field-layer{
+        @extend .post-field-container;
+        
+    }
+    .posts-container{
+        width: 100%;
+        position: relative;
+        border-radius: $card-border-radius;
+        background-color: $card-background;
+        
+    
+    .all-post-container{
+        align-items: center;
+        padding-top: 1.5rem;
+        background-color: $card-background;
+        .posters-details{
+            font-size:medium;
+            font-style: italic;
+            color: gray;
+
+            
+            h4{
+                font-size: medium;
+                align-self: self-start;
+                color: black;
+                line-height: 0.1rem;
+                margin-top: 0.7rem;
+                font-style: normal;
+            }
+        }
+        i{
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .posters-messages{
+            font-size:medium;
+            margin-block: 1.5rem;
+            border-radius: $card-border-radius;
+        }
+       .posts-icons-container{
+        width: 100%;
+        position: relative;
+        border-top: 2px solid var(--bs-gray-200);
+        border-bottom:  2px solid var(--bs-gray-200);
+            .posts-icons-layer{
+                position: relative;
+                justify-content: space-between !important;
+                width: 100%;
+                display: flex;
+                span{
+                    cursor: pointer;
+                    padding: 0.5rem;
+                    margin-block: 0.7rem;
+                    font-size: medium;
+                    
+                }
+            }
+            .posts-icons-layer span:hover{
+                background-color: var(--bs-gray-200);
+                scale: 0.9;
+            }
+       }
+        .alerts-icons{
+           
+            i{
+                font-size: medium;
+                padding: 0.1rem;
+                border-radius: 50%;
+                background-color: white;
+            }
+            
+           
+        }
+        .alerts-icons i:nth-child(1){
+            color: black;
+            z-index: 3;
+        }
+        .alerts-icons i:nth-child(2){
+            color: blue;
+            margin-left: -0.2rem;
+            z-index: 2;
+        }
+        .alerts-icons i:nth-child(3){
+            color: red;
+            margin-left: -0.2rem;
+            z-index: 1;
+        }
+        .react-layer{
+            margin-bottom: 1rem;
+            span{
+                font-size:medium;
+                margin-inline: 0.4rem;
+                cursor: pointer;
+            }
+            span:nth-child(1){
+                margin-left: 0;
+            }
+            span:nth-child(4){
+                margin-right: 0;
+            }
+            span:hover{
+                color: var(--bs-gray-200);
+            }
+        }
+
+    }
+}
+   
+}
+
+
+.sign-in{
+    input{
+        border-inline:none;
+        border-top:none
+    }
+    input:focus{
+    outline: none !important;
+    box-shadow: none !important;
+    
+    }
+}
+
+.sign-up{
+    input,select{
+        border-inline:none;
+        border-top:none
+    }
+    input:focus{
+    outline: none !important;
+    box-shadow: none !important;
+    
+    }
+}
+
+
+@media screen and (max-width:1115px) {
+    
+   
+.navbar{
+    border-bottom: 1px solid black;
+    align-items: center;
+    
+    .container-fluid{
+    position: relative;
+    }
+        .search-container{
+            display: block;
+           position: relative;
+           overflow: visible;
+           box-shadow: none;
+    
+            i{
+                margin-top: 0.2rem;
+                width: 100%;
+                margin-left: 0.1rem;
+                cursor: pointer;
+            }
+        }
+        .search-container input{
+            position:absolute;
+            border: black solid 1px;
+            border-radius: 1rem;
+            outline-color: black;
+            bottom: -2rem;
+            right: -0.5rem;
+            display: block;
+            z-index: 10;
+        }
+    
+}
+   
+}
+
