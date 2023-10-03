@@ -4,19 +4,37 @@ import {Swiper,SwiperSlide} from "swiper/react";
 import "swiper/swiper-bundle.css";
 import{ useState} from "react";
 import {LocationContext} from "../../locationsContext"
+import { UserDetailsContext } from "../../user_details";
 
-const Alerts=()=>{
+const Timeline=()=>{
 
     const alertsCategories=["All","Danger","Warning"]
     const [alertActive, setalertActive] = useState("All");
+ 
+
+   
 
     const AlertActive=(items)=>{
         setalertActive(items)
     }
 
-    const {locations, loading, cityLocations, countryValue, countryUpdate,stateValue,stateUpdate}= useContext(LocationContext)
+    const {locations,
+         loading,
+          cityLocations,
+           countryValue,
+            countryUpdate,
+            stateValue,
+            stateUpdate,
+             cityFunction,
+            }= useContext(LocationContext)
 
- 
+    const {image_upload,
+            Image,
+            imageData,
+            Token, profile_picture,handleCloudinary
+           } = useContext(UserDetailsContext)
+
+    // console.log(countryValue)
 
 
         
@@ -26,9 +44,11 @@ const Alerts=()=>{
                 <div className="user-profile-layer">
                     <div className="profile-layer d-flex" style={{justifyContent:"space-between"}}>
                         <div className="profile-pics ">
-                            <img src="plane.jpg " alt="" />
+                            <input type="file" accept="image/*" name="img"  onChange={image_upload}/>
+                            <img src={Image} alt=""/>
+                           
                         </div>
-
+    
                         <div className="profile-field-textarea">
                             <textarea name="" id="" cols="30" rows="10" placeholder="Make a notification"></textarea>
                         </div>
@@ -46,7 +66,7 @@ const Alerts=()=>{
                                 <i className="bx bxs-video"></i>
                                 <i className="bx bxs-camera"></i>
                             
-                                <button>Post</button>
+                                <button style={{marginLeft:"0.5rem"}} onClick={handleCloudinary}>Post</button>
                         </div>
                     </div>
                 </div>
@@ -58,7 +78,7 @@ const Alerts=()=>{
                     <option>Country</option>
                     <optgroup>
                         {locations.map((location, index)=>(
-                        <option key={index}>{location.name}</option>
+                        <option  key={index}>{location.name}</option>
                         ))}
                     </optgroup>
                    
@@ -82,11 +102,11 @@ const Alerts=()=>{
                 </select>
 
                 {stateValue === ""}
-                <select name="" id="state">
+                <select name="" id="state" onChange={(e)=>cityFunction(e.target.value)}>
                 <option>City</option>
                 <optgroup>
-                    {locations.map((location)=>(
-                        <option >{location.name}</option>
+                    {cityLocations.map((city)=>(
+                        <option >{city}</option>
                         ))}
                 </optgroup>
                 
@@ -108,7 +128,7 @@ const Alerts=()=>{
                 
                 <div className="posts-container">
                 <div className={alertActive === 'All'?'all-post-container ':'d-none'}
-                 style={{marginBottom:"1rem", borderRadius:"1rem"}}>
+                 style={{marginTop:"1rem", borderRadius:"1rem"}}>
                     <div className="all-post-layer mx-4">
                     <div className="profile-layer d-flex" style={{justifyContent:"space-between"}}>
                         <div className="d-flex">
@@ -117,7 +137,7 @@ const Alerts=()=>{
                         </div>
                         <div className="posters-details fw-lighter mx-3">
                             <h4 className="fw-bold">Name</h4>
-                            Country/State/Area
+                            2days ago
                         </div>
                         </div>
                         <div>
@@ -130,28 +150,28 @@ const Alerts=()=>{
                             sd,mdkcdlcmdlcmds
                             sdkndssd
                     </div>
-                       <span style={{fontSize:"medium", fontWeight:"lighter",color:"gray", fontStyle:"italic"}}>  2days ago</span> 
+                
                     <div className="posts-icons-container">
                         <div className="posts-icons-layer">
-                            <span className="bx bx-show">Witness(6k)</span>
-                            <span className="bx bx-like ">Confirmed(500)</span>
-                            <span className="bx bx-dislike ">Reject(0)</span>
-                            <span className="bx bx-message ">Message(5.7k)</span>
+                            <i className="bx bx-show">Witness <span><p>1.5k</p></span></i>
+                            <i className="bx bx-like ">Confirmed <span><p>1.5k</p></span></i>
+                            <i className="bx bx-dislike ">Reject <span><p>1.5k</p></span></i>
+                            <i className="bx bx-message ">Message <span><p>1.5k</p></span></i>
                         </div>
                     </div>
-                <div className="user-profile-conatiner ">
+                <div className="user-profile-conatiner " style={{ boxShadow:"none"}}>
                     <div className="user-profile-layer px-0 d-flex" style={{justifyContent:"space-between"}}>
                        
                             <div className="profile-pics " style={{height:"1.9rem", width:"1.9rem"}}>
                                 <img src="plane.jpg " alt="" />
                             </div>
-                        <div className="profile-layer " style={{ width:"90%", backgroundColor:"rgba(245, 245, 245)",borderRadius:"1rem"}}>
+                        <div className="profile-layer response-post " style={{ width:"90%", backgroundColor:"rgba(245, 245, 245)",borderRadius:"1rem"}}>
                             <div className="profile-field-textarea" style={{width:"100%"}}>
                                 <span 
                                 style={{position:"absolute",backgroundColor:"rgba(245, 245, 245)", height:"0.8rem", width:"0.8rem", rotate:"45deg", left:"-0.4rem", top:"0.7rem"}}>
 
                                 </span>
-                                <textarea name="" id="" cols="30" rows="10" placeholder="Make a comment"
+                                <textarea  name="" id="" cols="30" rows="10" placeholder="Make a comment"
                                  style={{height:"30px", width:"100%", borderRadius:"1rem", backgroundColor:"rgba(245, 245, 245)", color:"black",paddingInline:"0.6rem"}}>
                                 </textarea>
                             </div>
@@ -176,9 +196,9 @@ const Alerts=()=>{
             </div>
             <div className="post-field-layer">
                 
-                <div className="posts-container">
+                <div className="posts-container" >
                     <div className={alertActive === 'All'?'all-post-container ':'d-none'}
-                    style={{marginBottom:"1rem", borderRadius:"1rem"}}>
+                    style={{marginTop:"1rem", borderRadius:"1rem"}}>
                         <div className="all-post-layer mx-4">
                         <div className="profile-layer d-flex" style={{justifyContent:"space-between"}}>
                             <div className="d-flex">
@@ -187,7 +207,7 @@ const Alerts=()=>{
                             </div>
                             <div className="posters-details fw-lighter mx-3">
                                 <h4 className="fw-bold">Name</h4>
-                                Country/State/Area
+                                2days ago
                             </div>
                             </div>
                             <div>
@@ -204,28 +224,28 @@ const Alerts=()=>{
                     </div>
                             
                     </div>
-                        <span style={{fontSize:"medium", fontWeight:"lighter",color:"gray", fontStyle:"italic"}}>  2days ago</span> 
+                 
                     <div className="posts-icons-container">
                         <div className="posts-icons-layer">
-                            <span className="bx bx-show">Witness(2k)</span>
-                            <span className="bx bx-like ">Confirmed(500)</span>
-                            <span className="bx bx-dislike ">Reject(0)</span>
-                            <span className="bx bx-message ">Message(5.7k)</span>
+                            <i className="bx bx-show">Witness <span><p>1.5k</p></span></i>
+                            <i className="bx bx-like ">Confirmed <span><p>1.5k</p></span></i>
+                            <i className="bx bx-dislike ">Reject <span><p>1.5k</p></span></i>
+                            <i className="bx bx-message ">Message <span><p>1.5k</p></span></i>
                         </div>
                     </div>
-                <div className="user-profile-conatiner ">
+                <div className="user-profile-conatiner " style={{boxShadow:"none"}}>
                     <div className="user-profile-layer px-0 d-flex" style={{justifyContent:"space-between"}}>
                        
                             <div className="profile-pics " style={{height:"1.9rem", width:"1.9rem"}}>
                                 <img src="plane.jpg " alt="" />
                             </div>
-                        <div className="profile-layer " style={{ width:"90%", backgroundColor:"rgba(245, 245, 245)",borderRadius:"1rem"}}>
+                        <div className="profile-layer response-post" style={{ width:"90%", backgroundColor:"rgba(245, 245, 245)",borderRadius:"1rem"}}>
                             <div className="profile-field-textarea" style={{width:"100%"}}>
                                 <span 
                                 style={{position:"absolute",backgroundColor:"rgba(245, 245, 245)", height:"0.8rem", width:"0.8rem", rotate:"45deg", left:"-0.4rem", top:"0.7rem"}}>
 
                                 </span>
-                                <textarea name="" id="" cols="30" rows="10" placeholder="Make a comment"
+                                <textarea  name="" id="" cols="30" rows="10" placeholder="Make a comment"
                                  style={{height:"30px", width:"100%", borderRadius:"1rem", backgroundColor:"rgba(245, 245, 245)", color:"black",paddingInline:"0.6rem"}}>
                                 </textarea>
                             </div>
@@ -252,4 +272,4 @@ const Alerts=()=>{
     )
 };
 
-export default Alerts;
+export default Timeline;

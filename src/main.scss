@@ -4,7 +4,8 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family:var(--bs-font-sans-serif )
+    font-family:var(--bs-font-sans-serif );
+   
     }
 
 $container-width:90%;
@@ -12,7 +13,8 @@ $card-border-radius:1rem;
 $car-margin-inline:1.5rem;
 $card-padding-block:1rem;
 $card-background:white;
-$home-background:whitesmoke;
+$home-background:#f2f2f2;
+$container-shadow:0 0 2px gray;
 
 
 .profile-pics{
@@ -57,7 +59,10 @@ textarea{
 
 
 //end of default properties
-
+Link{
+    text-decoration: none;
+    color: red;
+}
 .navbar{
     align-items: center;
     width: 100%;
@@ -70,6 +75,38 @@ textarea{
     .container-fluid{
     width:$container-width;
     margin: auto;
+    .navbar-brand{
+        text-decoration: none;
+    }
+
+
+    .d-flex{
+      align-items: center;
+      
+    #p-tag{
+        border-radius: 50%;
+        padding-inline: 0.8rem;
+        background-color: black;
+        text-align: center;
+        font-size: large;
+        font-weight: bolder;
+        padding-top: 0.5rem;
+        height: 40px;
+        color: white;
+        text-transform: uppercase;
+        display: none;
+    }
+    #nav-icons{
+        #log-out-icon{
+            color: red;
+            margin-left: 1rem;
+        }
+        i{
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+    } 
+    }
     }
         .search-container{
             display: flex;
@@ -98,23 +135,21 @@ textarea{
 }
 
 .home-container{
-    background-color:$home-background;
     position: relative;
     max-width: 100%;
-    background-color: var(--bs-gray-200);
+    background-color:$home-background;
     padding-bottom: 5rem;
-
+    
 
     .home-layer{
-    padding-top: 5rem;
+        top:5.4rem;
     width: $container-width;
     margin: auto;
     display: grid;
-    grid-template-columns: 25% 53% 20%;
+    grid-template-columns: 20% 53% 25%;
     column-gap: 1%;
     position: relative;
     height: fit-content;
-    overflow: hidden;
     }
 }
 
@@ -123,12 +158,14 @@ textarea{
     position: relative;
     top: 0;
     height: fit-content;
-    margin-block-start: 0.5rem;
     border-radius: 0.7rem;
     width: 100%;
     align-items: center;
     
-    
+    .user-profile-conatiner:hover textarea{
+        box-shadow: 0px 0px 2px $home-background;
+        border-radius: $card-border-radius;
+    }
     .user-profile-conatiner{
         background-color:$card-background;
         position: relative;
@@ -136,11 +173,11 @@ textarea{
         position: relative !important;
         top: 0;
         height:90%;
-        overflow: visible;
         border-radius: $card-border-radius;
         font-weight: bold;
         width: 100%;
         align-items: center !important;
+        box-shadow: $container-shadow;
             .user-profile-layer{
                 position: relative;
                 padding:1.5rem 2rem;
@@ -174,14 +211,16 @@ textarea{
                 }
                 .user-message-categories{
                     select{
-                        width: 9rem;
+                        width: 3.5rem;
                         border-radius: $card-border-radius;
-                        border-bottom:none;
-                        border-top: 0.1px black solid;
+                        border:none;
+                        border-right: 0.1px black solid;
                         cursor: pointer;
                         outline-color: #0d6efd;
                         height: 1.5rem;
                         align-self: center;
+                        font-size: x-small;
+                
                     }
                 }
                
@@ -193,18 +232,21 @@ textarea{
         background-color: $card-background;
         border-radius: $card-border-radius;
         padding-top: 0.6rem;
+        overflow: hidden;
+        display: none;
         form{
             display: flex;
             display: relative;
             padding-inline: $car-margin-inline;
+            position: relative;
             select{
                 width: 9rem;
                 border-radius: $card-border-radius;
-                border-bottom:none;
-                border-top: 0.1px black solid;
+                border:none;
+                border-right: 0.1px black solid;
                 cursor: pointer;
                 outline-color: #0d6efd;
-                margin-inline-end: 0.5rem;
+                margin-right: 1.5rem;
 
             }
 
@@ -241,6 +283,7 @@ textarea{
 
     .post-field-layer{
         @extend .post-field-container;
+        box-shadow: $container-shadow;
         
     }
     .posts-container{
@@ -273,6 +316,7 @@ textarea{
             font-size: 0.9rem;
             cursor: pointer;
         }
+       
 
         .posters-messages{
             font-size:medium;
@@ -289,17 +333,39 @@ textarea{
                 justify-content: space-between !important;
                 width: 100%;
                 display: flex;
-                span{
+                i{
                     cursor: pointer;
                     padding: 0.5rem;
                     margin-block: 0.7rem;
                     font-size: medium;
-                    
+                    position: relative;
+                    span{
+                        position: absolute;
+                        background-color:#0d6efd;
+                        width: 2rem;
+                        height: 2rem;
+                        right: 0%;
+                        top: -1rem;
+                        display: none;
+                        border-radius: 50%;
+                        text-align: center;
+                        color: white;
+                        font-size: x-small;
+                        font-weight: bold;
+                        box-shadow: 0 0 0.3rem black;
+                        align-items: center;
+                        p{
+                            margin-top: 25%;
+                        }
+                    }
                 }
             }
-            .posts-icons-layer span:hover{
+            .posts-icons-layer i:hover{
                 background-color: var(--bs-gray-200);
                 scale: 0.9;
+                span{
+                    display: block;
+                }
             }
        }
         .alerts-icons{
@@ -349,6 +415,60 @@ textarea{
 }
    
 }
+.Emergency-container:hover{
+    box-shadow: 0 0 4px blue;
+}
+.Emergency-container{
+    border-radius: $card-border-radius;
+    background-color: $card-background;
+    position: sticky !important;
+    top: 4.5rem !important;
+    height: fit-content;
+    text-align: center;
+    font-weight: bolder;
+    box-shadow: $container-shadow;
+
+    #map-toggle-icon{
+        padding: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+
+    }
+   
+    .emergency-btn{
+        margin-inline: $car-margin-inline;
+        border-block: var(--bs-gray-200) 1px solid;
+        .emergency-i i{
+            border-radius: $card-border-radius;
+            padding: 0.5rem;
+            font-size: x-small; 
+            border: 1px solid black;
+            font-weight: bold;
+            
+        }
+        i:hover{
+            background-color:black;
+            color: white;
+            border: none;
+            scale: 0.3;
+        }
+    }
+    #location_details{
+        text-align: left;
+        margin-block: 1.5rem;
+        div{
+            padding: 1rem;
+            border-bottom: 3px solid $home-background;
+            border-top: 3px solid $home-background;
+        }
+        p{
+            line-height: 0.4rem;
+            font-weight: lighter;
+        }
+        
+    }
+}
+            
 
 
 .sign-in{
@@ -376,41 +496,157 @@ textarea{
 }
 
 
-@media screen and (max-width:1115px) {
-    
-   
-.navbar{
-    border-bottom: 1px solid black;
-    align-items: center;
-    
-    .container-fluid{
-    position: relative;
-    }
-        .search-container{
+        .user-side-bar{
             display: block;
-           position: relative;
-           overflow: visible;
-           box-shadow: none;
-    
-            i{
-                margin-top: 0.2rem;
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            height: fit-content;
+          
+            position: sticky;
+            top: 1rem !important;
+            
+            
+            .user-info{
+                padding-inline: 20px;
+                margin-bottom: 1rem;
+                padding-block: 10px;
+               
+                background-color: $card-background;
+                border-radius: $card-border-radius;
+                box-shadow: $container-shadow;
+                
+          
+            }
+            img{
                 width: 100%;
-                margin-left: 0.1rem;
-                cursor: pointer;
+            }
+            .user-image-container{
+                margin-bottom: 3rem;
+                border: $container-shadow;
+            }
+            #user-img{
+                width: 4.5rem;
+                height: 4.5rem;
+                border-radius: 50%;
+                position: absolute;
+                top: 7rem;
+                left: 2rem;
+                border: 4px white solid;
+            }
+            .user-name{
+               font-weight: 2rem;
+              border-bottom: solid 1px $home-background;
+            
+               p{
+                font-size: 0.8rem;
+                font-weight: lighter;
+               }
+            }
+            .user-location{
+                margin-block: 1.5rem;
+                
+             
+                div{
+                    line-height: 0;
+                    margin-bottom: 1rem;
+                    p{
+                        font-weight: 100 ;
+                        font-size: 1.3rem;
+                        
+                    }
+                    span{
+                        font-size: 0.7rem;
+                        font-weight: lighter;
+                    }
+                    h6{
+                        font-size: 0.8rem;
+                    }
+                }
+
+                
+            }
+            .news-container{
+                padding-inline: 20px;
+                margin-top: 1rem;
+                box-shadow: $container-shadow;
+                background-color: $card-background;
+                border-radius: $card-border-radius;
+                h5{
+                    margin-bottom: 2rem;
+                    padding-top: 1rem;
+                }
+                .news{
+                    padding-top: 0.5rem;
+                    border-block: 1px solid $home-background;
+                    font-size: 0.8rem;
+                    font-weight: lighter;
+                    display: flex;
+                    justify-content: space-between;
+                    #trending-details{
+                        width: 75%;
+                   
+                    }
+                }
             }
         }
-        .search-container input{
-            position:absolute;
-            border: black solid 1px;
-            border-radius: 1rem;
-            outline-color: black;
-            bottom: -2rem;
-            right: -0.5rem;
-            display: block;
-            z-index: 10;
-        }
+
+
+
+@media screen and (max-width:770px) {
+    
+   
+.post-field-container{
+    grid-column: 1/4;
+}
+.Emergency-container{
+    display: none;
     
 }
-   
+
+
+
 }
+
+
+@media screen and (max-width:576px) {
+
+    .home-layer{
+        width: 100% !important;
+    }
+
+    textarea{
+        font-size: small !important;
+    }
+    
+    .post-textarea-icons{
+      
+        i{
+            margin: 0.3rem 0.5rem ;
+            font-size: x-small !important;
+
+        }
+        button{
+            font-size: x-small;
+        }
+       
+    }
+
+    .posts-icons-layer{
+        i{
+           
+            font-size: small !important;
+        }
+    }
+    .posters-messages{
+        font-size:small !important;
+    }
+    .response-post{
+   
+        margin-left: 1rem !important;
+
+}
+
+    
+    }
 
