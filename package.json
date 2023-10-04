@@ -1,5 +1,5 @@
 {
-  "homepage": "https://hollarteju.github.io/Alert",
+  "homepage": "https://hollarteju.github.io/alert",
   "name": "online-shop",
   "version": "0.1.0",
   "private": true,
@@ -25,7 +25,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build -b gh-pages"
   },
   "eslintConfig": {
     "extends": [

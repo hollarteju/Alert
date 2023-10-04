@@ -19,7 +19,7 @@ function App() {
     <div className='app-container'>
       <LocationContextProvider>
       <UserDetailsProvider>
-        <Router basename='/Alert'>
+        <Router basename='/alert'>
           <Navbar/>
             <Routes>
             
