@@ -2,7 +2,6 @@ import {React} from "react";
 import Timeline from "./timeLine";
 import Emergency from "./emergency";
 import Post from "./postField";
-import { Setting } from "./setting";
 
 
 
@@ -13,7 +12,6 @@ const Home=()=>{
                     <Post/>
                     <Timeline/>
                     <Emergency/>
-                    <Setting/>
                 </div>
             </div>
             

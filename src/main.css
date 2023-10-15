@@ -87,9 +87,16 @@ Link {
   text-transform: uppercase;
   display: none;
 }
+.navbar .container-fluid .d-flex #nav-icons .d-flex {
+  border-radius: 1rem;
+  font-size: x-small;
+  cursor: pointer;
+}
+.navbar .container-fluid .d-flex #nav-icons .d-flex:hover {
+  scale: 0.9;
+}
 .navbar .container-fluid .d-flex #nav-icons #log-out-icon {
   color: red;
-  margin-left: 1rem;
 }
 .navbar .container-fluid .d-flex #nav-icons i {
   cursor: pointer;
@@ -460,15 +467,23 @@ Link {
 .user-side-bar .user-image-container {
   margin-bottom: 3rem;
   border: 0 0 2px gray;
+  height: 8rem;
+  overflow: hidden;
 }
-.user-side-bar #user-img {
+.user-side-bar #user-profile-pics {
+  border-radius: 50%;
   width: 4.5rem;
   height: 4.5rem;
-  border-radius: 50%;
   position: absolute;
   top: 7rem;
   left: 2rem;
   border: 4px white solid;
+  overflow: hidden;
+}
+.user-side-bar #user-profile-pics #user-img {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 .user-side-bar .user-name {
   font-weight: 2rem;
@@ -481,13 +496,16 @@ Link {
 .user-side-bar .user-location {
   margin-block: 1.5rem;
 }
+.user-side-bar .user-location p {
+  font-weight: 100;
+  font-size: 1.3rem;
+}
 .user-side-bar .user-location div {
   line-height: 0;
   margin-bottom: 1rem;
-}
-.user-side-bar .user-location div p {
-  font-weight: 100;
-  font-size: 1.3rem;
+  border-right: 1px solid gray;
+  width: 50%;
+  margin-right: 0.5rem;
 }
 .user-side-bar .user-location div span {
   font-size: 0.7rem;

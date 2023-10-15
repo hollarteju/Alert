@@ -97,9 +97,17 @@ Link{
         display: none;
     }
     #nav-icons{
+        .d-flex{
+            border-radius: 1rem;
+            font-size: x-small;
+            cursor: pointer;
+
+        }
+        .d-flex:hover{
+            scale: 0.9;
+        }
         #log-out-icon{
             color: red;
-            margin-left: 1rem;
         }
         i{
             cursor: pointer;
@@ -524,16 +532,26 @@ Link{
             .user-image-container{
                 margin-bottom: 3rem;
                 border: $container-shadow;
+                height: 8rem;
+                overflow: hidden;
             }
-            #user-img{
+            #user-profile-pics{
+                border-radius: 50%;
                 width: 4.5rem;
                 height: 4.5rem;
-                border-radius: 50%;
                 position: absolute;
                 top: 7rem;
                 left: 2rem;
                 border: 4px white solid;
+                overflow: hidden;
+                #user-img{
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    
+                }
             }
+           
             .user-name{
                font-weight: 2rem;
               border-bottom: solid 1px $home-background;
@@ -545,16 +563,19 @@ Link{
             }
             .user-location{
                 margin-block: 1.5rem;
-                
+                p{
+                    font-weight: 100 ;
+                    font-size: 1.3rem;
+                    
+                }
              
                 div{
                     line-height: 0;
                     margin-bottom: 1rem;
-                    p{
-                        font-weight: 100 ;
-                        font-size: 1.3rem;
-                        
-                    }
+                    border-right: 1px solid gray;
+                    width: 50%;
+                    margin-right: 0.5rem;
+                   
                     span{
                         font-size: 0.7rem;
                         font-weight: lighter;

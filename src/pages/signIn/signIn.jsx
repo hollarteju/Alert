@@ -47,7 +47,7 @@ const SignInPage =()=>{
                                                         </div>
                                                             <a class="small text-muted" href="#!">Forgot password?</a>
                                                                 <p class="mb-5 pb-lg-2" style={{color: "#393f81"}}>Don't have an account?
-                                                                  <a href="/Alert/signup" style={{color: "#393f81"}}>Register here</a>
+                                                                  <Link to="signup">  <a href="" style={{color: "#393f81"}}>Register here</a>  </Link>
                                                                 </p>
                                                                 <a href="#!" class="small text-muted">Terms of use.</a>
                                                                 <a href="#!" class="small text-muted">Privacy policy</a>

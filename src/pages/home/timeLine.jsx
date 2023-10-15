@@ -44,29 +44,21 @@ const Timeline=()=>{
                 <div className="user-profile-layer">
                     <div className="profile-layer d-flex" style={{justifyContent:"space-between"}}>
                         <div className="profile-pics ">
-                            <input type="file" accept="image/*" name="img"  onChange={image_upload}/>
-                            <img src={Image} alt=""/>
-                           
+                            <img src={Image == null?"unknown.png": Image } alt=""/>
                         </div>
     
                         <div className="profile-field-textarea">
                             <textarea name="" id="" cols="30" rows="10" placeholder="Make a notification"></textarea>
                         </div>
                     </div>
-                    <div className="d-flex user-message-categories" style={{justifyContent:"space-between"}}>
-                         <select name="" id="">
-                               <option value="">Choose</option>
-                            <optgroup>
-                                <option value="">Danger</option>
-                                <option>Warning</option>
-                            </optgroup>
-                        </select>
+                    <div className="d-flex justify-content-end user-message-categories">
+                        
                         <div className="post-textarea-icons">
                                 <i className="bx bxs-image"></i>
                                 <i className="bx bxs-video"></i>
                                 <i className="bx bxs-camera"></i>
                             
-                                <button style={{marginLeft:"0.5rem"}} onClick={handleCloudinary}>Post</button>
+                                <button style={{marginLeft:"0.5rem"}}>Post</button>
                         </div>
                     </div>
                 </div>

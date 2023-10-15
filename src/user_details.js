@@ -7,63 +7,65 @@ import { wait } from "@testing-library/user-event/dist/utils";
 export const UserDetailsContext= createContext(null);
 
 export const UserDetailsProvider = ({children})=>{
-    const [login_data, setlogin_data]= useState([])
+    const [login_data, setlogin_data]= useState([]);
     const [Access_login, setAccess_login]= useState({
         username : "",
         password : ""
-    })
-    const [users, setUsers]= useState(()=>localStorage.getItem("authTokens")?true: null)
-    const [Token, setToken] = useState(()=>localStorage.getItem("authTokens")?jwtDecode(localStorage.getItem("authTokens")): null)
-    const [UserLogo, setUserLogo] = useState("")
+    });
+    const [users, setUsers]= useState(()=>localStorage.getItem("authTokens")?true: null);
+    const [Token, setToken] = useState(()=>localStorage.getItem("authTokens")?jwtDecode(localStorage.getItem("authTokens")): null);
+    const [UserLogo, setUserLogo] = useState("");
 
 
 const [user, setuser]=useState(false);
 const [searchBar, setsearchBar]=useState(false);
-const [Image, setImage]= useState(null)
-const [Map, setMap] = useState(false)
+const [Image, setImage]= useState(null);
+const [Avatar, setAvatar]= useState(null);
+const [Map, setMap] = useState(false);
+const [SaveImage, setSaveImage] = useState(false);
  
 
 
 const userToggle=()=>{
   setuser(!user);
 };
-console.log(users)
+
 
 const searchBarToggle=()=>{
-    setsearchBar(!searchBar)
-}
+    setsearchBar(!searchBar);
+};
 
 const log_out=()=>{
-  localStorage.removeItem("authTokens")
-  setUsers(null)
-  window.location.href= "/Alert"
+  localStorage.removeItem("authTokens");
+  setUsers(null);
+  window.location.href= "/Alert";
  
-}
+};
   
     function sign_in_form(event){
-        setlogin_data((datas)=>({...datas, [event.target.name]:event.target.value}))
+        setlogin_data((datas)=>({...datas, [event.target.name]:event.target.value}));
         
-    }
+    };
 
    
 const login =async(e)=>{
-    e.preventDefault()
+    e.preventDefault();
   
-    const Error = {...Access_login}
+    const Error = {...Access_login};
     try{
         
         const response = await fetch("http://127.0.0.1:8000/token",{
         method:"POST",
         headers:{"Content-Type": "application/json"},
         body: JSON.stringify(login_data)
-    })
-    const data = await response.json()
+    });
+    const data = await response.json();
     if(response.ok){
        
         
-        localStorage.setItem("authTokens", JSON.stringify(data))
-        setUsers(localStorage.getItem("authTokens")? true: null)
-        setToken(jwtDecode(data.access))
+        localStorage.setItem("authTokens", JSON.stringify(data));
+        setUsers(localStorage.getItem("authTokens")? true: null);
+        setToken(jwtDecode(data.access));
 
     }
     else{
@@ -90,11 +92,23 @@ const image_upload=(event)=>{
     let file = event.target.files[0];
     let reader = new FileReader();
     reader.onloadend = ()=>{
-        setImage(reader.result)
+        setImage(reader.result);
+    }
+     reader.readAsDataURL(file);
+
+    };
+
+       
+const avatar_upload=(event)=>{
+    let file = event.target.files[0];
+    let reader = new FileReader();
+    reader.onloadend = ()=>{
+        setAvatar(reader.result)
     }
      reader.readAsDataURL(file)
 
     }
+const save_button = document.getElementById("pics_click")
 
     const handleCloudinary=async(e)=>{
         e.preventDefault()
@@ -106,37 +120,71 @@ const image_upload=(event)=>{
             method: "POST",
             body:formData,
         })
+
+
+        if(response.ok){
         const data = await response.json()
         setImage(data.secure_url)
+        save_button.textContent = "succesful"
+        setSaveImage(true)
+        }
+        else{
+            console.log("bad")
+           
+        }
+        formData.delete("file");
+        formData.append("file", Avatar)
+     
+        const avatar_response = await fetch("https://api.cloudinary.com/v1_1/dxsvadizj/image/upload",{
+            method: "POST",
+            body:formData,
+        })
+
+        
+        if(avatar_response.ok){
+        const data = await avatar_response.json()
+        setAvatar(data.secure_url)
+        save_button.textContent = "succesful"
+        // setSaveImage(true)
+        }
+        else{
+            console.log("bad")
+           
+        }
+        }catch(error){
+            console.log(error)
             
         }
-        catch(error){
-            console.log(error)
-        }
-
-        imageData()
+     
 
     }
   
 
     const imageData =async(e)=>{
-        e.preventDefault()
+        // e.preventDefault()
+        console.log("perfect")
     
         try{
             
             const response = await fetch("http://127.0.0.1:8000/save_images",{
             method:"POST",
             headers:{"Content-Type": "application/json"},
-            body: JSON.stringify({"image":Image, "username":Token.username})
+            body: JSON.stringify({"image":Image, "username":Token.username, "avatar":Avatar})
             
         })
-        const data = await response.json()
-        setImage(data.image)
-        console.log(Image)
+        if(response.ok){
+            const data = await response.json()
+            // setImage(data)
+            console.log(data)
+           
+        }else{
+            console.log("bad")
+        }
+       
         }
         catch(error){
            
-           
+            console.log(Image)
             console.log(error)
 
         }
@@ -154,11 +202,12 @@ const image_upload=(event)=>{
               })
             
               const data = await response.json()
-              setImage(data)
+              setImage(data.image)
+              setAvatar(data.avatar)
 
           }
           catch(error){
-                console.log("bad request")
+                console.log(Image)
           }
       }
 
@@ -171,6 +220,13 @@ useEffect(()=>{
         profile_picture()
     }
 })
+
+useEffect(()=>{
+    if(SaveImage){
+    imageData();
+    }
+   
+},[SaveImage]);
 
    
 
@@ -190,7 +246,9 @@ const UserDetailsValues = {
       profile_picture,
       handleCloudinary,
       toggleMap,
-      Map
+      Map,
+      Avatar,
+      avatar_upload
      
     }
 
