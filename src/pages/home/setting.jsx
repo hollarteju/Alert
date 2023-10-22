@@ -47,7 +47,7 @@ export const Setting=()=>{
                                         <div class=" d-flex mb-4 align-items-center justify-content-space-between bg-light  rounded-pill">
                                             
                                             <div className='profile-pics'>
-                                                <img src={Image == null?"unknown.png": Image } alt=""/>
+                                                <img src={Image } alt=""/>
                                             </div>
                                             <label class="col-xl-10" style={{cursor:"pointer"}}>
                                                 <span class="mx-4" id="pics_click">Click to change profile picture</span>
@@ -59,7 +59,7 @@ export const Setting=()=>{
                                         <div class=" d-flex align-items-center justify-content-space-between bg-light  rounded-pill">
                                             
                                             <div className='profile-pics'>
-                                            <img src={Avatar == null?"unknown.png": Avatar } alt=""/>
+                                            <img src={Avatar } alt=""/>
                                             </div>
                                             <label class="col-xl-10" style={{cursor:"pointer"}}>
                                                 <span class="mx-4">Click to change Avatar</span>

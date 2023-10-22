@@ -8,9 +8,9 @@ const Post=()=>{
         <div  className='user-side-bar'>
             <div className='user-info'>
                 <div className='user-image-container'>
-                    <img src={Avatar==null?"":Avatar} alt="" />
+                    <img src={Avatar} alt="" />
                     <div id='user-profile-pics'>
-                        <img id='user-img' src={Image == null?"unknown.png": Image } alt=""/>
+                        <img id='user-img' src={Image } alt=""/>
                     </div>
                 </div>
                 

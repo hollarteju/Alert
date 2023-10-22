@@ -1,4 +1,4 @@
-import { createContext, useState,useEffect } from "react";
+import { createContext, useState,useEffect, useRef } from "react";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 import { wait } from "@testing-library/user-event/dist/utils";
@@ -19,12 +19,13 @@ export const UserDetailsProvider = ({children})=>{
 
 const [user, setuser]=useState(false);
 const [searchBar, setsearchBar]=useState(false);
-const [Image, setImage]= useState(null);
-const [Avatar, setAvatar]= useState(null);
+const [Image, setImage]= useState("unknown.png");
+const [Avatar, setAvatar]= useState("unknown.png");
 const [Map, setMap] = useState(false);
 const [SaveImage, setSaveImage] = useState(false);
- 
-
+const [Timeline_message, setTimeline_message] = useState("")
+const [Timeline_media, setTimeline_media] = useState(null)
+const [Timeline_data, setTimeline_data] = useState([])
 
 const userToggle=()=>{
   setuser(!user);
@@ -183,8 +184,6 @@ const save_button = document.getElementById("pics_click")
        
         }
         catch(error){
-           
-            console.log(Image)
             console.log(error)
 
         }
@@ -207,7 +206,7 @@ const save_button = document.getElementById("pics_click")
 
           }
           catch(error){
-                console.log(Image)
+                console.log(error)
           }
       }
 
@@ -215,11 +214,102 @@ function toggleMap(){
     setMap(!Map)
 }
 
+function timeline_message_handler(event){
+    setTimeline_message(event.target.value);
+   
+ 
+};
+
+
+function timeline_media_handler(event){
+    setTimeline_media(event.target.value);
+    
+    
+};
+
+const timeline_api =async(e)=>{
+    e.preventDefault()
+    try{
+        const response = await fetch("http://127.0.0.1:8000/timeline_update",{
+            method:"POST",
+            headers:{"Content-Type": "application/json"},
+            body: JSON.stringify({"username":Token.username,
+             "timeline_message":Timeline_message,
+            "timeline_media":Timeline_media})
+        })
+        if(response.ok){
+            const data = await response.json()
+            console.log(data)
+        }
+    }catch(error){
+        console.log(error)
+    };
+   
+};
+
+
+const txt_ref = useRef()
+
+
+
+const timeline_api_response =async()=>{
+    try{
+        const response = await fetch("http://127.0.0.1:8000/timeline_res",{
+            method:"POST",
+            headers:{"Content-Type": "application/json"},
+            // body: JSON.stringify({"username":Token.username,
+            //  "timeline_message":Timeline_message,
+            // "timeline_media":Timeline_media})
+        })
+        if(response.ok){
+            const data = await response.json()
+            setTimeline_data(data)
+            txt_ref.current.value = ""
+            console.log(data)
+        }
+    }catch(error){
+        console.log(error)
+    }
+   
+}
+
+function timeline_reaction(e){
+
+}
+const timeline_containter = useRef()
+function timeline_key(){
+    let a =timeline_containter.current?.getAttribute("data-key");
+    console.log(a)
+}
+
+const timeline_reaction_api = async()=>{
+    try{
+        const response = await fetch("http://127.0.0.1:8000/reaction_update",{
+            method:"POST",
+            headers:{"Content-Type": "application/json"},
+            body: JSON.stringify({})
+        })
+        if(response.ok){
+            const data = await response.json()
+            console.log(data)
+        }
+    }catch(error){
+        console.log(error)
+    }
+}
+
+useEffect(()=>{
+  
+},[])
+
+
 useEffect(()=>{
     if(users){
         profile_picture()
+        timeline_api_response()
+        
     }
-})
+},[users])
 
 useEffect(()=>{
     if(SaveImage){
@@ -248,7 +338,16 @@ const UserDetailsValues = {
       toggleMap,
       Map,
       Avatar,
-      avatar_upload
+      avatar_upload,
+      Timeline_message,
+      timeline_api,
+      timeline_message_handler,
+      timeline_media_handler,
+      timeline_key,
+      timeline_containter,
+      timeline_api_response,
+      Timeline_data,
+      txt_ref
      
     }
 

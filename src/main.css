@@ -201,6 +201,9 @@ Link {
   margin: 0.3rem 0.5rem;
   font-size: x-large !important;
 }
+.post-field-container .user-profile-conatiner .user-profile-layer .post-textarea-icons button, .post-field-container .post-filter .post-field .user-profile-layer .post-textarea-icons button {
+  margin-left: 0.5rem;
+}
 .post-field-container .user-profile-conatiner .user-profile-layer .user-message-categories select, .post-field-container .post-filter .post-field .user-profile-layer .user-message-categories select {
   width: 3.5rem;
   border-radius: 1rem;
@@ -239,21 +242,6 @@ Link {
 .post-field-container .post-filter .post-field {
   margin-top: 0.9rem;
   border-top: 1px solid var(--bs-gray-200);
-}
-.post-field-container .post-filter .post-field .post-field-categories ul li {
-  margin-left: -0.5rem;
-  margin-right: 1.4rem;
-  cursor: pointer;
-  padding-bottom: 0.4rem;
-}
-.post-field-container .post-filter .post-field .post-field-categories ul .post-field-categories-active {
-  border-bottom: 2px solid #0d6efd;
-  padding: 0.5rem;
-  border-top: 1rem;
-}
-.post-field-container .post-filter .post-field .post-field-categories ul .post-field-categories-inactive {
-  padding: 0.5rem;
-  border-top: 1rem;
 }
 .post-field-container .post-field-layer, .post-field-container .post-field-layer .post-field-layer {
   box-shadow: 0 0 2px gray;
