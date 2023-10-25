@@ -264,7 +264,6 @@ const timeline_api_response =async()=>{
         if(response.ok){
             const data = await response.json()
             setTimeline_data(data)
-            txt_ref.current.value = ""
             console.log(data)
         }
     }catch(error){
@@ -272,14 +271,25 @@ const timeline_api_response =async()=>{
     }
    
 }
-
-function timeline_reaction(e){
-
+const[Timeline_id, setTimeline_id]= useState("")
+function timeline_reaction(x, y){
+    try{
+        const response = fetch("http://127.0.0.1:8000/reaction_update",{
+            method:"POST",
+            headers:{"Content-Type": "application/json"},
+            body: JSON.stringify({"username":Token.username,"id":x ,"reaction":y})
+        })
+        if(response.ok){
+         
+        }
+    }catch(error){
+        console.log(error)
+    }
 }
 const timeline_containter = useRef()
 function timeline_key(){
     let a =timeline_containter.current?.getAttribute("data-key");
-    console.log(a)
+    setTimeline_id(a)
 }
 
 const timeline_reaction_api = async()=>{
@@ -347,7 +357,8 @@ const UserDetailsValues = {
       timeline_containter,
       timeline_api_response,
       Timeline_data,
-      txt_ref
+      txt_ref,
+      timeline_reaction
      
     }
 
