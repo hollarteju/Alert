@@ -30,7 +30,6 @@ const Timeline=()=>{
             timeline_api_response,
             timeline_api,
             Timeline_data,
-            txt_ref,
             timeline_reaction
            } = useContext(UserDetailsContext)
 
@@ -43,26 +42,26 @@ const Timeline=()=>{
                 <div className="user-profile-layer">
                     <div className="profile-layer d-flex" style={{justifyContent:"space-between"}}>
                         <div className="profile-pics ">
-                            <img src={Image } alt=""/>
+                            <img src={Image?Image:"unknown.png" } alt=""/>
                         </div>
     
                         <div className="profile-field-textarea">
-                            <textarea ref={txt_ref} name="" id="" cols="30" rows="10" placeholder="Make a notification" onChange={timeline_message_handler} ></textarea>
+                            <textarea name="" id="" cols="30" rows="10" placeholder="Make a notification" onChange={timeline_message_handler} ></textarea>
                         </div>
                     </div>
                     <div className="d-flex justify-content-end user-message-categories">
                         
                         <div className="post-textarea-icons">
                             <label class="" style={{cursor:"pointer"}}>
-                                <i className="bx bxs-image">I</i>
+                                <i className="bx bxs-image"></i>
                                 <input type="file" class="d-none" onChange={timeline_media_handler}/>
                             </label>
                             <label class="" style={{cursor:"pointer"}}>
-                                <i className="bx bxs-video">V</i>
+                                <i className="bx bxs-video"></i>
                                 <input type="file" class="d-none" onChange={timeline_media_handler}/>
                             </label>
                             <label class="" style={{cursor:"pointer"}}>
-                                <i className="bx bxs-camera">C</i>
+                                <i className="bx bxs-camera"></i>
                                 <input type="file" class="d-none" onChange={timeline_media_handler}/>
                             </label>
                             <button onClick={timeline_api}>Post</button>
@@ -70,51 +69,6 @@ const Timeline=()=>{
                     </div>
                 </div>
             </div>
-            <div className="post-filter">
-            <form>
-                
-                <select  name="" id="country" onChange={(e)=>countryUpdate(e.target.value)}>
-                    <option>Country</option>
-                    <optgroup>
-                        {locations.map((location, index)=>(
-                        <option  key={index}>{location.name}</option>
-                        ))}
-                    </optgroup>
-                   
-                </select>
-            
-                
-                <select name="" id="state" onChange={(e)=>stateUpdate(e.target.value)}>
-                    <option>State</option>
-                    {locations.map((location,index)=>(
-                    <>
-                        {countryValue === location.name?
-                        <optgroup key={index}>
-                        {location.states.map((state,subIndex)=>(
-                            <option key={subIndex}>{state.name}</option>
-                        ))}
-                
-                        </optgroup>:""} 
-            
-                    </>
-                        ))} 
-                </select>
-
-                {stateValue === ""}
-                <select name="" id="state" onChange={(e)=>cityFunction(e.target.value)}>
-                <option>City</option>
-                <optgroup>
-                    {cityLocations.map((city)=>(
-                        <option >{city}</option>
-                        ))}
-                </optgroup>
-                
-                </select>
-                
-            </form>
-                
-            </div>
-            
             <div className="post-field-layer ">
                 
                 <div className="posts-container" >

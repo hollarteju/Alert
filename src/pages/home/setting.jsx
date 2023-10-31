@@ -1,31 +1,43 @@
-import React from "react";
+import {React, Ref, useRef} from "react";
 import { useContext } from "react";
 import { UserDetailsContext } from "../../user_details";
 import { Link } from "react-router-dom";
 
 export const Setting=()=>{
-    
+    const AvartInputRef = useRef(null);
+    const ProfilePicInputRef = useRef(null);
+
+    function enable_avatar_input(){
+        AvartInputRef.current.disabled = false
+    }
+    function profile_pic_input(){
+        ProfilePicInputRef.current.disabled = false
+    }
     const {image_upload,
         Image,
         imageData,
         Token, profile_picture,handleCloudinary,
         Avatar,
-        avatar_upload
+        Bio,
+        avatar_upload,
+        edit_user,
+        edit_user_bio,
+        user_username
        } = useContext(UserDetailsContext)
     return(
-<div class="px-5 h-100 sign-up" style={{backgroundColor: "rgba(245, 245, 245"}}>
+<div class="setting_con h-100 sign-up" style={{backgroundColor: "rgba(245, 245, 245"}}>
             
-            <div class="container px-5 py-5 mx-5 h-100">
+            <div class="container py-5  h-100 ">
                 
-                <div class="row d-flex mx-5  justify-content-center align-items-center h-100">
+                <div class="row d-flex px-lg-5 mx-lg-5  justify-content-center align-items-center h-100">
                     
-                    <div class="col px-5 mx-5">
+                    <div class="col px-lg-5 mx-lg-5" id="setting_layer">
                         
-                        <div class="card card-registration px-5 my-4 mx-5">
+                        <div class="card card-registration px-md-5 my-4 mx-md-5">
                         
                             <div class="row g-0">
                             
-                                <div class="col-xl-12 px-5">
+                                <div class="col-xl-12 px-md-5">
                                     
                                     <div class="card-body p-md-5 text-black">
                                     <form onSubmit="">
@@ -34,24 +46,31 @@ export const Setting=()=>{
                                             
                                             <div class="my-4">
                                     
-                                
                                                 <div class="form-outline d-flex">
                                                     
-                                                    <input type="text" name="username" id="form3Example1m" class="form-control form-control-lg" placeholder="Username" onChange="" value={Token.username} disabled/>
-                                                    <span class="btn btn-dark btn-sm mx-2 text-align-center">Edit...</span>
+                                                    <input type="text" name="Bio" id="user" class="form-control form-control-lg" placeholder={user_username} onChange={edit_user} ref={ProfilePicInputRef} disabled/>
+                                                    <span class="btn btn-dark btn-sm mx-2 text-align-center" onClick={profile_pic_input} >Edit...</span>
                                                 </div>
+                                               
+                                            </div>
+                                            <div class="my-4">
+                                                <div class="form-outline d-flex s_txtarea">  
+                                                    <textarea type="text" name="Bio" id="bio" class="form-control form-control-lg" placeholder={Bio} onChange={edit_user_bio} ref={AvartInputRef} disabled/>
+                                                    <span class="btn btn-dark btn-sm mx-2 text-align-center" onClick={enable_avatar_input}>Edit...</span>
+                                                </div>
+                                            
                                             </div>
                                        
-                                    </div>
+                                        </div>
                                        
                                         <div class=" d-flex mb-4 align-items-center justify-content-space-between bg-light  rounded-pill">
                                             
                                             <div className='profile-pics'>
-                                                <img src={Image } alt=""/>
+                                                <img src={Image?Image:"unknown.png" } alt=""/>
                                             </div>
                                             <label class="col-xl-10" style={{cursor:"pointer"}}>
-                                                <span class="mx-4" id="pics_click">Click to change profile picture</span>
-                                                <input class="d-none" type="file" accept="image/*" name="img"  onChange={image_upload}/>
+                                                <span class="mx-4" id="pics_click">change profile picture</span>
+                                                <input class="d-none" type="file" accept="image/*" name="img"  onChange={image_upload} />
                                             </label>
                                            
                                         </div>
@@ -59,18 +78,18 @@ export const Setting=()=>{
                                         <div class=" d-flex align-items-center justify-content-space-between bg-light  rounded-pill">
                                             
                                             <div className='profile-pics'>
-                                            <img src={Avatar } alt=""/>
+                                            <img src={Avatar?Avatar:"unknown.png" } alt=""/>
                                             </div>
                                             <label class="col-xl-10" style={{cursor:"pointer"}}>
-                                                <span class="mx-4">Click to change Avatar</span>
-                                                <input type="file" class="d-none" onChange={avatar_upload}/>
+                                                <span class="mx-4">change Avatar</span>
+                                                <input type="file" accept="image/*" class="d-none" onChange={avatar_upload}/>
                                             </label>
                                            
                                         </div>
                                         
                                         <div class="d-flex justify-content-end pt-3">
                                             <Link to="/home"><span type="span" class="btn btn-danger btn-lg"  >Cancel</span></Link>
-                                            <span type="submit" class="btn btn-dark btn-lg ms-2"  onClick={handleCloudinary} >Save</span>
+                                            <span type="submit" class="btn btn-dark btn-lg ms-2"  onClick={imageData} >Save</span>
                                         </div>
                                        
                                         </form>

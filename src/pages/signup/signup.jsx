@@ -3,33 +3,30 @@ import React, {useState} from "react";
 
 
 const SignUp=()=>{
-
-    const [firstNumbers, setFirstNumber]= useState("")
-    const [secondNumbers, setSecondNumber]= useState("")
-    const [thirdNumbers, setThirdNumber]= useState("")
-    
     const [registeration_data, setregisteration_data]= useState([]);
     const [ErrorMessage, setErrorMessage]= useState({
         username: "",
         password: "",
         confirm_password:"",
-        phone_number:""
+        email:""
 
     });
-    const [Phone_number, setPhone_number] = useState("")
     const [networkError, setNetworkError]= useState("")
-    const [State, SetState] = useState("")
-    const [City, SetCity] = useState("")
-    const [District, SetDistrict] = useState("")
+   
     
    
 
     function registeration_form(event){
-        setregisteration_data((values)=> ({...values, [event.target.name]: event.target.value, phone_number:phone_number_value}))
+        setregisteration_data((values)=> ({...values, [event.target.name]: event.target.value}))
      
     }
 
-     function error_notification(username, password, confirm_password, phone_number, state, city, district){
+    function email_validate(email){
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        return emailRegex.test(email)
+    }
+
+     function error_notification(username, password, confirm_password, email){
         const Error = {...ErrorMessage}
        
             if(!username || username.length < 3 || username.length > 20){
@@ -51,41 +48,23 @@ const SignUp=()=>{
             else{
                 Error.confirm_password = ""
             }
-            if(!phone_number || phone_number.length < 15){
-                Error.phone_number = "Input valid number"
+            if(!email || !email_validate(email)){
+                Error.email = "Input valid email"
             }
             else{
-                Error.phone_number = ""
+                Error.email = ""
             }
-            if(!state || state === "state"){
-                SetState(true)
-            }
-            else{
-                SetState(false)
-            }
-            if(!city || city === "city"){
-                SetCity(true)
-            }
-            else{
-                SetCity(false)
-            }
-            if(!district || district === "district"){
-                SetDistrict(true)
-            }
-            else{
-                SetDistrict(false)
-            }
-            
            
-           
-            
         setErrorMessage(Error)
     }
 
     function error_handling(){
-        error_notification(registeration_data.username,
+        error_notification(
+            registeration_data.username,
             registeration_data.password,
-            registeration_data.confirm_password,registeration_data.state, registeration_data.city, registeration_data.district, Phone_number)
+            registeration_data.confirm_password,
+            registeration_data.email
+            )
         
     }
 
@@ -118,6 +97,11 @@ const SignUp=()=>{
         }
     };
     
+/*
+     const [firstNumbers, setFirstNumber]= useState("")
+    const [secondNumbers, setSecondNumber]= useState("")
+    const [thirdNumbers, setThirdNumber]= useState("")
+
     function inputHandle(event){
         let {value}= event.target
         setPhone_number(value)
@@ -160,7 +144,7 @@ const SignUp=()=>{
        
     }
     const phone_number_value =(`${firstNumbers}${secondNumbers}${thirdNumbers}`)
-
+*/
     function reset_all(){
         window.location.href = "/Alert/signup"
     }
@@ -191,7 +175,13 @@ const SignUp=()=>{
                                 <form onSubmit={register}>
                                     <h3 class="mb-5 text-uppercase">SignUp your account</h3>
                                     <div class="row">
-                                        
+                                        <div class="form-outline mb-4">
+                                           
+                                           <input type="text" id="form2Example17" class="form-control form-control-lg" name="email" placeholder="Email" onChange={registeration_form} 
+                                               />
+                                               <p class="text-danger">{ErrorMessage.email}</p>
+                                           
+                                       </div>
                                         <div class="mb-4">
                                 
                             
@@ -213,14 +203,8 @@ const SignUp=()=>{
                                         <input type="password" name="confirm_password" id="form3Example97" class="form-control form-control-lg" placeholder="Confirm Password" onChange={registeration_form} />
                                         <p class="text-danger">{ErrorMessage.confirm_password}</p>
                                     </div>
-                                    <div class="form-outline mb-4">
-                                           
-                                        <input type="text" id="form2Example17" class="form-control form-control-lg" name="phone_number" placeholder="PhoneNumber (Option)" onChange={inputHandle} value={phone_number_value}  onKeyDown={keyDown} 
-                                            />
-                                            <p class="text-danger">{ErrorMessage.phone_number}</p>
-                                        
-                                    </div>
-                                    <select class="select form-control-lg mb-5 " name="state" onChange={registeration_form} style={{borderColor:" rgb(173, 173, 218)"}}>
+                                    
+                                    {/* <select class="select form-control-lg mb-5 " name="state" onChange={registeration_form} style={{borderColor:" rgb(173, 173, 218)"}}>
                                         <option value="1">State</option>
                                     </select>
                                     {State?<span class="text-danger fs-3 p-3">*</span>:""}
@@ -243,7 +227,7 @@ const SignUp=()=>{
                                         {District?<span class="text-danger fs-3 p-3">*</span>:""}
                                         
                     
-                                    </div>
+                                    </div> */}
                                     
                                     <div class="d-flex justify-content-end pt-3">
                                         <button type="button" class="btn btn-danger btn-lg" onClick={reset_all} >Reset all</button>

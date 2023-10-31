@@ -19,13 +19,19 @@ export const UserDetailsProvider = ({children})=>{
 
 const [user, setuser]=useState(false);
 const [searchBar, setsearchBar]=useState(false);
-const [Image, setImage]= useState("unknown.png");
-const [Avatar, setAvatar]= useState("unknown.png");
+const [Image, setImage]= useState(null);
+const [Avatar, setAvatar]= useState(null);
+const [Bio, setBio]= useState(localStorage.getItem("bio")?localStorage.getItem("bio"):"")
+const [Bio_edit, setBio_edit] = useState("")
 const [Map, setMap] = useState(false);
 const [SaveImage, setSaveImage] = useState(false);
 const [Timeline_message, setTimeline_message] = useState("")
 const [Timeline_media, setTimeline_media] = useState(null)
 const [Timeline_data, setTimeline_data] = useState([])
+
+const [auth, setauth]= useState(localStorage.getItem("user")?false:true)
+const [user_username, setuser_username] = useState("")
+const [Edit_user, setEdit_user]= useState("")
 
 const userToggle=()=>{
   setuser(!user);
@@ -38,6 +44,8 @@ const searchBarToggle=()=>{
 
 const log_out=()=>{
   localStorage.removeItem("authTokens");
+  localStorage.removeItem("user");
+  localStorage.removeItem("bio");
   setUsers(null);
   window.location.href= "/Alert";
  
@@ -67,14 +75,16 @@ const login =async(e)=>{
         localStorage.setItem("authTokens", JSON.stringify(data));
         setUsers(localStorage.getItem("authTokens")? true: null);
         setToken(jwtDecode(data.access));
-
+        
     }
+    
     else{
         Error.username = "invalid Username"
         Error.password = "Invalid Password"
         console.log("bad")
        
     }
+    
     }
     catch(error){
         Error.username = ""
@@ -109,7 +119,8 @@ const avatar_upload=(event)=>{
      reader.readAsDataURL(file)
 
     }
-const save_button = document.getElementById("pics_click")
+    
+    var save_button = document.getElementById("pics_click");
 
     const handleCloudinary=async(e)=>{
         e.preventDefault()
@@ -160,23 +171,46 @@ const save_button = document.getElementById("pics_click")
 
     }
   
-
-    const imageData =async(e)=>{
-        // e.preventDefault()
-        console.log("perfect")
+    function edit_user(e){
+       setEdit_user(e.target.value)
+        
+    }
+    function edit_user_bio(e){
+        setBio_edit(e.target.value)
+    }
     
+    const imageData =async()=>{
+        let change_username;
+        let change_bio;
+        if(Edit_user.length < 1){
+            change_username = user_username
+        }else{
+            change_username = Edit_user
+        }
+        if(Bio_edit.length < 1){
+            change_bio = Bio
+        }else{
+            change_bio = Bio_edit
+        } 
         try{
             
-            const response = await fetch("http://127.0.0.1:8000/save_images",{
+            const response = await fetch("https://hollarteju1.pythonanywhere.com/save_images",{
             method:"POST",
             headers:{"Content-Type": "application/json"},
-            body: JSON.stringify({"image":Image, "username":Token.username, "avatar":Avatar})
+            body: JSON.stringify({"image":Image, "username":user_username, "user":change_username, "avatar":Avatar, "bio":change_bio})
             
         })
         if(response.ok){
-            const data = await response.json()
-            // setImage(data)
-            console.log(data)
+            let data = await response.json()
+            localStorage.removeItem("user");
+            localStorage.setItem("user", data.user);
+            localStorage.removeItem("bio");
+            localStorage.setItem("bio", data.bio);
+            setauth(false)
+            // setUser_edit_value(data.user)
+            // console.log(data.username)
+           
+            window.location.href = "/Alert"
            
         }else{
             console.log("bad")
@@ -189,21 +223,25 @@ const save_button = document.getElementById("pics_click")
         }
     }
 
-
-    const profile_picture =async(e)=>{
-            // e.preventDefault()
+    const profile_picture =async()=>{
+            let username = localStorage.getItem("user")?localStorage.getItem("user"):Token.username
           try{
-              const response = await fetch("http://127.0.0.1:8000/profile_image_response",{
+              const response = await fetch("https://hollarteju1.pythonanywhere.com/profile_image_response",{
                   method:"POST",
                   headers:{"Content-Type": "application/json"},
-                  body: JSON.stringify({"username":Token.username})
+                  body: JSON.stringify({"username":username})
                   
               })
-            
-              const data = await response.json()
-              setImage(data.image)
-              setAvatar(data.avatar)
+              if(response.ok){
+                const data = await response.json()
+                setImage(data.image)
+                setAvatar(data.avatar)
+                setBio(data.bio)
 
+               
+                }
+                    
+              
           }
           catch(error){
                 console.log(error)
@@ -230,16 +268,18 @@ function timeline_media_handler(event){
 const timeline_api =async(e)=>{
     e.preventDefault()
     try{
-        const response = await fetch("http://127.0.0.1:8000/timeline_update",{
+        const response = await fetch("https://hollarteju1.pythonanywhere.com/timeline_update",{
             method:"POST",
             headers:{"Content-Type": "application/json"},
-            body: JSON.stringify({"username":Token.username,
+            body: JSON.stringify({"username":user_username,
              "timeline_message":Timeline_message,
             "timeline_media":Timeline_media})
         })
         if(response.ok){
+            window.location.href= "/Alert";
             const data = await response.json()
             console.log(data)
+           
         }
     }catch(error){
         console.log(error)
@@ -248,16 +288,13 @@ const timeline_api =async(e)=>{
 };
 
 
-const txt_ref = useRef()
-
-
 
 const timeline_api_response =async()=>{
     try{
-        const response = await fetch("http://127.0.0.1:8000/timeline_res",{
+        const response = await fetch("https://hollarteju1.pythonanywhere.com/timeline_res",{
             method:"POST",
-            headers:{"Content-Type": "application/json"},
-            // body: JSON.stringify({"username":Token.username,
+            headers:{"Content-Type": "application/json"}
+            // body: JSON.stringify({"username":user_username,
             //  "timeline_message":Timeline_message,
             // "timeline_media":Timeline_media})
         })
@@ -272,12 +309,12 @@ const timeline_api_response =async()=>{
    
 }
 const[Timeline_id, setTimeline_id]= useState("")
-function timeline_reaction(x, y){
+function timeline_reaction(id,reaction){
     try{
-        const response = fetch("http://127.0.0.1:8000/reaction_update",{
+        const response = fetch("https://hollarteju1.pythonanywhere.com/reaction_update",{
             method:"POST",
             headers:{"Content-Type": "application/json"},
-            body: JSON.stringify({"username":Token.username,"id":x ,"reaction":y})
+            body: JSON.stringify({"username":user_username,"id":id ,"reaction":reaction})
         })
         if(response.ok){
          
@@ -286,38 +323,23 @@ function timeline_reaction(x, y){
         console.log(error)
     }
 }
-const timeline_containter = useRef()
-function timeline_key(){
-    let a =timeline_containter.current?.getAttribute("data-key");
-    setTimeline_id(a)
-}
-
-const timeline_reaction_api = async()=>{
-    try{
-        const response = await fetch("http://127.0.0.1:8000/reaction_update",{
-            method:"POST",
-            headers:{"Content-Type": "application/json"},
-            body: JSON.stringify({})
-        })
-        if(response.ok){
-            const data = await response.json()
-            console.log(data)
-        }
-    }catch(error){
-        console.log(error)
-    }
-}
-
-useEffect(()=>{
-  
-},[])
 
 
 useEffect(()=>{
     if(users){
+        setuser_username(localStorage.getItem("user")?localStorage.getItem("user"):Token.username)
+        setBio(localStorage.getItem("bio") && localStorage.getItem("bio"))
         profile_picture()
         timeline_api_response()
         
+        if(auth){
+            
+            localStorage.setItem("user", Token.username)
+            localStorage.setItem("bio", Bio)
+        }
+        
+       
+        // setuser_username(localStorage.getItem("user"));
     }
 },[users])
 
@@ -348,20 +370,21 @@ const UserDetailsValues = {
       toggleMap,
       Map,
       Avatar,
+      Bio,
       avatar_upload,
       Timeline_message,
       timeline_api,
       timeline_message_handler,
       timeline_media_handler,
-      timeline_key,
-      timeline_containter,
       timeline_api_response,
       Timeline_data,
-      txt_ref,
-      timeline_reaction
+      timeline_reaction,
+      edit_user,
+      edit_user_bio,
+      user_username
      
     }
-
+//https://hollarteju1.pythonanywhere.com
     return(
         <UserDetailsContext.Provider value = {UserDetailsValues}>{children}</UserDetailsContext.Provider>
     )

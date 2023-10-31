@@ -3,36 +3,21 @@ import { useState, useContext } from "react";
 import { UserDetailsContext } from '../../user_details';
 
 const Post=()=>{
-   let {Token, Image, Avatar}=  useContext(UserDetailsContext)
+   let {Token,Edit_user, Image, Avatar,Bio,user_edit_value,user_username}=  useContext(UserDetailsContext)
     return(
         <div  className='user-side-bar'>
             <div className='user-info'>
                 <div className='user-image-container'>
-                    <img src={Avatar} alt="" />
+                    <img src={Avatar?Avatar:"unknown.png"} alt="" />
                     <div id='user-profile-pics'>
-                        <img id='user-img' src={Image } alt=""/>
+                        <img id='user-img' src={Image?Image:"unknown.png" } alt=""/>
                     </div>
                 </div>
                 
                 <div className='user-name'>
-                    <h5>{Token.username}</h5>
+                    <h5>{user_username}</h5>
                     
-                    <p>Graphic Designer at Self Employed</p>
-                </div>
-                <div className='user-location'>
-                    <p>Preferences</p>
-                    <span class="d-flex">
-                        <div>
-                            <h6>{Token.state}, {Token.city}</h6>
-                            <span>{Token.district}</span>
-                        </div>
-                        <div>
-                            <h6>{Token.state}, {Token.city}</h6>
-                            <span>{Token.district}</span>
-                        </div>
-                    </span>
-                    
-                
+                    <p>{Bio}</p>
                 </div>
             </div>
             <div className='news-container'>

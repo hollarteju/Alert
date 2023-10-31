@@ -10,7 +10,7 @@ const Emergency=()=>{
     const {emergencyMap, mapFunction,api,emergencyBtn}=useContext(LocationContext)
     const {toggleMap, Map} = useContext(UserDetailsContext)
     return(
-        <div className="Emergency-container" >
+        <div className="Emergency-container " >
             <div className="emergency-btn-container mt-3">
                 EMERGENCY
                

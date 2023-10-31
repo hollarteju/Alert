@@ -20,12 +20,12 @@ function TimeLineUpdate(){
         <>
         
            {Timeline_data.map(data=>(
-            <div className='all-post-container mt-1'style={{borderRadius:"1rem"}} data_key={data.user_id}>
+            <div className='all-post-container mt-1'style={{borderRadius:"1rem"}}>
              <div className="all-post-layer mx-4 ">
                  <div className="profile-layer d-flex" style={{justifyContent:"space-between"}}>
                      <div className="d-flex">
                          <div className="profile-pics">
-                             <img src={data.user_img?data.user_img:"unknown.png"} alt=""/>
+                             <img src={data.profile_pic?data.profile_pic:"unknown.png"} alt=""/>
                          </div>
                          <div className="posters-details fw-lighter mx-3">
                              <h4 className="fw-bold">{data.user}</h4>
@@ -46,17 +46,17 @@ function TimeLineUpdate(){
       
              <div className="posts-icons-container">
                  <div className="posts-icons-layer">
-                     <i className="bx bx-show" onClick={()=>timeline_reaction(data.user_id, "witness")}>witness<span><p>1.5k</p></span></i>
-                     <i className="bx bx-like " onClick={()=>timeline_reaction(data.user_id, "like")}>Confirmed <span><p>1.5k</p></span></i>
-                     <i className="bx bx-dislike " onClick={()=>timeline_reaction(data.user_id, "dislike")}>Reject <span><p>1.5k</p></span></i>
-                     <i className="bx bx-message ">Message <span><p>1.5k</p></span></i>
+                     <i className="bx bx-show" onClick={()=>timeline_reaction(data.user_id, "witness")}><i class="d-none d-md-block text-color-dark">witness</i><span><p>{data.witness}</p></span></i>
+                     <i className="bx bx-like " onClick={()=>timeline_reaction(data.user_id, "like")}><i class="d-none d-md-block">Confirmed </i><span><p>{data.like}</p></span></i>
+                     <i className="bx bx-dislike " onClick={()=>timeline_reaction(data.user_id, "dislike")}><i class="d-none d-md-block">Reject</i> <span><p>{data.like}</p></span></i>
+                     <i className="bx bx-message "><i class="d-none d-md-block">Message </i><span><p>1.5k</p></span></i>
                  </div>
              </div>
              <div className="user-profile-conatiner " style={{boxShadow:"none"}}>
                  <div className="user-profile-layer px-0 d-flex" style={{justifyContent:"space-between"}}>
              
                      <div className="profile-pics " style={{height:"1.9rem", width:"1.9rem"}}>
-                         <img src={Image} alt="" />
+                         <img src={Image?Image:"unknown.png"} alt="" />
                      </div>
                      <div className="profile-layer response-post" style={{ width:"90%", backgroundColor:"rgba(245, 245, 245)",borderRadius:"1rem"}}>
                          <div className="profile-field-textarea" style={{width:"100%"}}>

@@ -532,11 +532,17 @@ Link {
   .Emergency-container {
     display: none;
   }
-}
-@media screen and (max-width: 576px) {
+  .user-side-bar {
+    display: none;
+  }
   .home-layer {
     width: 100% !important;
   }
+  .setting_con {
+    margin-top: 15rem;
+  }
+}
+@media screen and (max-width: 576px) {
   textarea {
     font-size: small !important;
   }

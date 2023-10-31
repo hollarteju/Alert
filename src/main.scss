@@ -604,20 +604,24 @@ Link{
     grid-column: 1/4;
 }
 .Emergency-container{
+    display: none;   
+}
+.user-side-bar{
     display: none;
-    
 }
 
-
-
+.home-layer{
+    width: 100% !important;
+}
+.setting_con{
+    margin-top: 15rem;
+}
 }
 
 
 @media screen and (max-width:576px) {
 
-    .home-layer{
-        width: 100% !important;
-    }
+    
 
     textarea{
         font-size: small !important;
