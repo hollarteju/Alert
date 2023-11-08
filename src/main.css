@@ -155,6 +155,27 @@ Link {
   width: 100%;
   align-items: center;
 }
+.post-field-container .timeline_messages_container, .post-field-container .post-field-layer .timeline_messages_container {
+  background-color: #f2f2f2;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 1rem;
+  padding-inline: 0.7rem;
+  padding-top: 0.2rem;
+  position: relative;
+}
+.post-field-container .timeline_messages_container .profile-pics {
+  background-color: #f2f2f2;
+  position: absolute;
+  width: 1.8rem;
+  height: 1.8rem;
+}
+.post-field-container .timeline_messages_container .profile-pics img {
+  border-radius: 50%;
+}
+.post-field-container .timeline_messages_container b, .post-field-container .timeline_messages_container p {
+  font-size: small;
+}
 .post-field-container .user-profile-conatiner:hover textarea, .post-field-container .post-filter .post-field:hover textarea {
   box-shadow: 0px 0px 2px #f2f2f2;
   border-radius: 1rem;
@@ -297,32 +318,20 @@ Link {
   margin-block: 0.7rem;
   font-size: medium;
   position: relative;
+  display: flex;
 }
 .post-field-container .posts-container .all-post-container .posts-icons-container .posts-icons-layer i span {
-  position: absolute;
-  background-color: #0d6efd;
+  position: relative;
   width: 2rem;
-  height: 2rem;
-  right: 0%;
-  top: -1rem;
-  display: none;
-  border-radius: 50%;
   text-align: center;
-  color: white;
+  color: black;
   font-size: x-small;
   font-weight: bold;
-  box-shadow: 0 0 0.3rem black;
   align-items: center;
-}
-.post-field-container .posts-container .all-post-container .posts-icons-container .posts-icons-layer i span p {
-  margin-top: 25%;
 }
 .post-field-container .posts-container .all-post-container .posts-icons-container .posts-icons-layer i:hover {
   background-color: var(--bs-gray-200);
   scale: 0.9;
-}
-.post-field-container .posts-container .all-post-container .posts-icons-container .posts-icons-layer i:hover span {
-  display: block;
 }
 .post-field-container .posts-container .all-post-container .alerts-icons i {
   font-size: medium;
@@ -360,6 +369,10 @@ Link {
 }
 .post-field-container .posts-container .all-post-container .react-layer span:hover {
   color: var(--bs-gray-200);
+}
+
+.user_reaction {
+  font-size: 10px;
 }
 
 .Emergency-container:hover {

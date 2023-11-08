@@ -12,7 +12,7 @@ export const UserDetailsProvider = ({children})=>{
         username : "",
         password : ""
     });
-    const [users, setUsers]= useState(()=>localStorage.getItem("authTokens")?true: null);
+    const [users, setUsers]= useState(localStorage.getItem("authTokens")?true: null);
     const [Token, setToken] = useState(()=>localStorage.getItem("authTokens")?jwtDecode(localStorage.getItem("authTokens")): null);
     const [UserLogo, setUserLogo] = useState("");
 
@@ -63,7 +63,7 @@ const login =async(e)=>{
     const Error = {...Access_login};
     try{
         
-        const response = await fetch("https://hollarteju1.pythonanywhere.com/token",{
+        const response = await fetch("http://127.0.0.1:8000//token",{
         method:"POST",
         headers:{"Content-Type": "application/json"},
         body: JSON.stringify(login_data)
@@ -106,6 +106,7 @@ const image_upload=(event)=>{
         setImage(reader.result);
     }
      reader.readAsDataURL(file);
+   
 
     };
 
@@ -116,14 +117,14 @@ const avatar_upload=(event)=>{
     reader.onloadend = ()=>{
         setAvatar(reader.result)
     }
-     reader.readAsDataURL(file)
-
+        reader.readAsDataURL(file)
+        
     }
     
     var save_button = document.getElementById("pics_click");
 
     const handleCloudinary=async(e)=>{
-        e.preventDefault()
+        
         const formData = new FormData();
         formData.append("file", Image);
         formData.append("upload_preset", "Alert_files");
@@ -138,14 +139,46 @@ const avatar_upload=(event)=>{
         const data = await response.json()
         setImage(data.secure_url)
         save_button.textContent = "succesful"
-        setSaveImage(true)
+       
         }
         else{
             console.log("bad")
            
         }
-        formData.delete("file");
+        // formData.delete("file");
+        // formData.append("file", Avatar)
+     
+        // const avatar_response = await fetch("https://api.cloudinary.com/v1_1/dxsvadizj/image/upload",{
+        //     method: "POST",
+        //     body:formData,
+        // })
+
+        
+        // if(avatar_response.ok){
+        // const data = await avatar_response.json()
+        // setAvatar(data.secure_url)
+        // save_button.textContent = "succesful"
+        // // setSaveImage(true)
+        // }
+        // else{
+        //     console.log("bad")
+           
+        // }
+        }catch(error){
+            console.log(error)
+            
+        }
+     
+
+    }
+
+    const handleCloudinaryAvatar=async(e)=>{
+        
+        const formData = new FormData();
         formData.append("file", Avatar)
+        formData.append("upload_preset", "Alert_files");
+        try{
+        
      
         const avatar_response = await fetch("https://api.cloudinary.com/v1_1/dxsvadizj/image/upload",{
             method: "POST",
@@ -194,7 +227,7 @@ const avatar_upload=(event)=>{
         } 
         try{
             
-            const response = await fetch("https://hollarteju1.pythonanywhere.com/save_images",{
+            const response = await fetch("http://127.0.0.1:8000//save_images",{
             method:"POST",
             headers:{"Content-Type": "application/json"},
             body: JSON.stringify({"image":Image, "username":user_username, "user":change_username, "avatar":Avatar, "bio":change_bio})
@@ -226,7 +259,7 @@ const avatar_upload=(event)=>{
     const profile_picture =async()=>{
             let username = localStorage.getItem("user")?localStorage.getItem("user"):Token.username
           try{
-              const response = await fetch("https://hollarteju1.pythonanywhere.com/profile_image_response",{
+              const response = await fetch("http://127.0.0.1:8000//profile_image_response",{
                   method:"POST",
                   headers:{"Content-Type": "application/json"},
                   body: JSON.stringify({"username":username})
@@ -265,10 +298,17 @@ function timeline_media_handler(event){
     
 };
 
+const [Users_timeline_message, setUsers_timeline_message]= useState("")
+const [Users_msg_toggle, setUsers_msg_toggle] = useState("")
+
+function users_message_handler(event, id){
+    setUsers_timeline_message({"event":event.target.value, "id":id});
+};
+
 const timeline_api =async(e)=>{
     e.preventDefault()
     try{
-        const response = await fetch("https://hollarteju1.pythonanywhere.com/timeline_update",{
+        const response = await fetch("http://127.0.0.1:8000//timeline_update",{
             method:"POST",
             headers:{"Content-Type": "application/json"},
             body: JSON.stringify({"username":user_username,
@@ -291,38 +331,108 @@ const timeline_api =async(e)=>{
 
 const timeline_api_response =async()=>{
     try{
-        const response = await fetch("https://hollarteju1.pythonanywhere.com/timeline_res",{
+        const response = await fetch("http://127.0.0.1:8000//timeline_res",{
             method:"POST",
             headers:{"Content-Type": "application/json"}
-            // body: JSON.stringify({"username":user_username,
+            // body: JSON.stringify({"username":user_username})
             //  "timeline_message":Timeline_message,
             // "timeline_media":Timeline_media})
         })
         if(response.ok){
             const data = await response.json()
             setTimeline_data(data)
-            console.log(data)
+           
         }
     }catch(error){
         console.log(error)
     }
    
 }
-const[Timeline_id, setTimeline_id]= useState("")
-function timeline_reaction(id,reaction){
+const [Messages_toggle, setMessages_toggle] = useState(false)
+const timeline_messages = async(id)=>{
+    let message = Users_timeline_message.event
+    
     try{
-        const response = fetch("https://hollarteju1.pythonanywhere.com/reaction_update",{
+        const response = await fetch("http://127.0.0.1:8000//timeline_messages",{
+            method:"POST",
+            headers:{"Content-Type": "application/json"},
+            body: JSON.stringify({"username":user_username,"id":id ,"message":message})
+        })
+        if(response.ok){
+            setUsers_timeline_message("")
+
+        }
+        
+    }catch(error){
+        console.log(error)
+    }
+};
+
+const [Post_res, setPost_res] = useState([])
+const timeline_messages_res = async(id)=>{
+    // let message = Users_timeline_message.event
+    setMessages_toggle(id)
+    setPost_res([])
+    try{
+        const response = await fetch("http://127.0.0.1:8000/timeline_message_response",{
+            method:"POST",
+            headers:{"Content-Type": "application/json"},
+            body: JSON.stringify({"id":id })
+        })
+        if(response.ok){
+            const data = await response.json();
+            setPost_res(data);
+
+
+        }
+        
+    }catch(error){
+        console.log(error)
+    }
+    
+};
+
+
+const timeline_reaction = async(id,reaction)=>{
+   
+    try{
+        const response = await fetch("http://127.0.0.1:8000//reaction_update",{
             method:"POST",
             headers:{"Content-Type": "application/json"},
             body: JSON.stringify({"username":user_username,"id":id ,"reaction":reaction})
         })
         if(response.ok){
-         
+            const data = await response.json()
+            setTimeline_data(data)
+            console.log(data)
+        }
+        else{
+            console.log("something is wrong")
         }
     }catch(error){
         console.log(error)
     }
-}
+};
+
+
+const user_reaction = async()=>{
+    try{
+        let response = await fetch("http://127.0.0.1:8000/user_reaction",{
+            method:"POST",
+            headers:{"Content-Type": "application/json"},
+        })
+        if(response.ok){
+           let data = await response.json()
+          
+                };
+          
+    }
+    
+    catch(error){
+        console.log(error)
+    };
+   
+};
 
 
 useEffect(()=>{
@@ -331,6 +441,7 @@ useEffect(()=>{
         setBio(localStorage.getItem("bio") && localStorage.getItem("bio"))
         profile_picture()
         timeline_api_response()
+        user_reaction()
         
         if(auth){
             
@@ -367,6 +478,7 @@ const UserDetailsValues = {
       imageData,
       profile_picture,
       handleCloudinary,
+      handleCloudinaryAvatar,
       toggleMap,
       Map,
       Avatar,
@@ -381,7 +493,17 @@ const UserDetailsValues = {
       timeline_reaction,
       edit_user,
       edit_user_bio,
-      user_username
+      user_username,
+      timeline_messages,
+      users_message_handler,
+      Users_timeline_message,
+      Users_msg_toggle,
+      timeline_messages,
+      timeline_messages_res,
+      Messages_toggle,
+      Post_res
+     
+      
      
     }
 //https://hollarteju1.pythonanywhere.com

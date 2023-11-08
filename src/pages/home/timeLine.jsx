@@ -5,7 +5,8 @@ import "swiper/swiper-bundle.css";
 import{ useState} from "react";
 import {LocationContext} from "../../locationsContext"
 import { UserDetailsContext } from "../../user_details";
-import TimeLineUpdate from "./timeline_update";
+import TimeLineUpdate from "./timeline/timeline_update";
+
 
 const Timeline=()=>{
 

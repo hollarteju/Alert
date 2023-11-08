@@ -16,7 +16,9 @@ export const Setting=()=>{
     const {image_upload,
         Image,
         imageData,
-        Token, profile_picture,handleCloudinary,
+        Token, profile_picture,
+        handleCloudinary,
+        handleCloudinaryAvatar,
         Avatar,
         Bio,
         avatar_upload,
@@ -68,10 +70,17 @@ export const Setting=()=>{
                                             <div className='profile-pics'>
                                                 <img src={Image?Image:"unknown.png" } alt=""/>
                                             </div>
-                                            <label class="col-xl-10" style={{cursor:"pointer"}}>
-                                                <span class="mx-4" id="pics_click">change profile picture</span>
-                                                <input class="d-none" type="file" accept="image/*" name="img"  onChange={image_upload} />
-                                            </label>
+                                            <div className="d-flex ms-5">
+                                                <label class="col-xl-10 ms-4" style={{cursor:"pointer"}}>
+                                                    
+                                                    <span class="mx-5" id="pics_click">change profile picture</span>
+                                                    <input class="d-none " type="file" accept="image/*" name="img"  onChange={image_upload} />
+                                                
+                                                </label>
+                                                <span class="btn btn-dark btn-sm ms-4 text-align-center" onClick={handleCloudinary}>Change...</span>
+                                                
+                                            </div>
+                                           
                                            
                                         </div>
                                  
@@ -80,10 +89,16 @@ export const Setting=()=>{
                                             <div className='profile-pics'>
                                             <img src={Avatar?Avatar:"unknown.png" } alt=""/>
                                             </div>
-                                            <label class="col-xl-10" style={{cursor:"pointer"}}>
-                                                <span class="mx-4">change Avatar</span>
-                                                <input type="file" accept="image/*" class="d-none" onChange={avatar_upload}/>
-                                            </label>
+                                            <div className="d-flex ms-5">
+                                                <label class="col-xl-10 ms-4" style={{cursor:"pointer"}}>
+                                                    
+                                                    <span class="mx-5" id="pics_click">change avatar picture</span>
+                                                    <input class="d-none " type="file" accept="image/*" name="img"  onChange={avatar_upload} />
+                                                
+                                                </label>
+                                                <span class="btn btn-dark btn-sm ms-4 text-align-center" onClick={handleCloudinaryAvatar}>Change...</span>
+                                                
+                                            </div>
                                            
                                         </div>
                                         

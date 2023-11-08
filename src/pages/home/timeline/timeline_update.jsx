@@ -1,5 +1,7 @@
 import {React, useEffect, useState, useContext} from "react";
-import { UserDetailsContext } from "../../user_details";
+import { UserDetailsContext } from "../../../user_details";
+import moment from "moment"
+import Messages from "./messages";
 
 function TimeLineUpdate(){
     const {image_upload,
@@ -14,13 +16,30 @@ function TimeLineUpdate(){
         timeline_api,
         Timeline_data,
         txt_ref,
-        timeline_reaction
-       } = useContext(UserDetailsContext)
+        timeline_reaction,
+        timeline_messages,
+        user_username,
+        users_message_handler,
+        Users_timeline_message,
+        Users_msg_toggle,
+        Messages_toggle,
+        timeline_messages_res,
+        Post_res
+        
+       } = useContext(UserDetailsContext);
+    
+   
+  
+    function Time(value){
+        return moment(value).fromNow();
+    }
+    
+   
     return(
         <>
         
            {Timeline_data.map(data=>(
-            <div className='all-post-container mt-1'style={{borderRadius:"1rem"}}>
+            <div className='all-post-container mt-1'style={{borderRadius:"1rem"}} key={data.user_id}>
              <div className="all-post-layer mx-4 ">
                  <div className="profile-layer d-flex" style={{justifyContent:"space-between"}}>
                      <div className="d-flex">
@@ -29,7 +48,7 @@ function TimeLineUpdate(){
                          </div>
                          <div className="posters-details fw-lighter mx-3">
                              <h4 className="fw-bold">{data.user}</h4>
-                             2days ago
+                             {Time(data.time)}
                          </div>
                       </div>
                      <div>
@@ -43,15 +62,40 @@ function TimeLineUpdate(){
                  </div>:""}
                  
              </div>
-      
+            {data.reacter.includes(`${user_username}-like`) &&
+            <div className="text-muted user_reaction">
+                <b>You</b>
+                <span class="px-1">Liked</span>
+            </div>}
+            {data.reacter.includes(`${user_username}-dislike`) &&
+            <div className="text-muted user_reaction">
+                <b>You</b>
+                <span class="px-1">Disliked</span>
+            </div>}
+            {data.reacter.includes(`${user_username}-witness`) &&
+            <div className="text-muted user_reaction">
+                <b>You</b>
+                <span class="px-1">Witness</span>
+            </div>}
+             
              <div className="posts-icons-container">
                  <div className="posts-icons-layer">
-                     <i className="bx bx-show" onClick={()=>timeline_reaction(data.user_id, "witness")}><i class="d-none d-md-block text-color-dark">witness</i><span><p>{data.witness}</p></span></i>
-                     <i className="bx bx-like " onClick={()=>timeline_reaction(data.user_id, "like")}><i class="d-none d-md-block">Confirmed </i><span><p>{data.like}</p></span></i>
-                     <i className="bx bx-dislike " onClick={()=>timeline_reaction(data.user_id, "dislike")}><i class="d-none d-md-block">Reject</i> <span><p>{data.like}</p></span></i>
-                     <i className="bx bx-message "><i class="d-none d-md-block">Message </i><span><p>1.5k</p></span></i>
+                     <i className={data.reacter.includes(`${user_username}-witness`) ?"bx bxs-show text-success":"bx bx-show "}id="witness"  onClick={()=>timeline_reaction(data.user_id, "witness")}>
+                        <icon class="d-none d-md-block text-dark">witness</icon>
+                        <span >{data.witness}</span>
+                    </i>
+                     <i className={data.reacter.includes(`${user_username}-like`) ?"bx bxs-like text-primary":"bx bx-like "} id="like" onClick={()=>timeline_reaction(data.user_id, "like")}>
+                        <icon class="d-none d-md-block text-dark">Confirmed </icon>
+                        <span>{data.like}</span>
+                    </i>
+                     <i className={data.reacter.includes(`${user_username}-dislike`) ?"bx bxs-dislike text-danger":"bx bx-dislike "} id="dislike" onClick={()=>timeline_reaction(data.user_id, "dislike")}>
+                        <icon class="d-none d-md-block text-dark">Reject</icon>
+                        <span>{data.dislike}</span>
+                    </i>
+                     <i className="bx bx-message " onClick={()=>timeline_messages_res(data.user_id)}><icon class="d-none d-md-block">Message </icon></i>
                  </div>
              </div>
+                <Messages toggle={Messages_toggle} id={data.user_id} messages = {Post_res}/>
              <div className="user-profile-conatiner " style={{boxShadow:"none"}}>
                  <div className="user-profile-layer px-0 d-flex" style={{justifyContent:"space-between"}}>
              
@@ -64,7 +108,10 @@ function TimeLineUpdate(){
     
                              </span>
                              <textarea  name="" id="" cols="30" rows="10" placeholder="Make a comment"
-                             style={{height:"30px", width:"100%", borderRadius:"1rem", backgroundColor:"rgba(245, 245, 245)", color:"black",paddingInline:"0.6rem"}}>
+                             style={{height:"30px", width:"100%", borderRadius:"1rem",
+                              backgroundColor:"rgba(245, 245, 245)", color:"black",
+                              paddingInline:"0.6rem"}} onChange={(event)=>users_message_handler(event,data.user_id)}
+                               value={Users_timeline_message.id===data.user_id ? Users_timeline_message.event : ""}>
                              </textarea>
                          </div>
              
@@ -76,10 +123,12 @@ function TimeLineUpdate(){
                              
                              </div>
                      
-                             <i className="bx bx-send"></i>
+                             <i className="bx bx-send" onClick={()=>timeline_messages(data.user_id)}>send</i>
                          </div>
                      </div>
+                    
                  </div>
+               
              </div>
          </div>
      </div>
