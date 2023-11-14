@@ -122,6 +122,7 @@ const avatar_upload=(event)=>{
     }
     
     var save_button = document.getElementById("pics_click");
+    var save_A_button = document.getElementById("pics_A_click")
 
     const handleCloudinary=async(e)=>{
         
@@ -142,7 +143,7 @@ const avatar_upload=(event)=>{
        
         }
         else{
-            console.log("bad")
+            save_button.textContent = "Upload Declined............"
            
         }
         // formData.delete("file");
@@ -165,8 +166,8 @@ const avatar_upload=(event)=>{
            
         // }
         }catch(error){
-            console.log(error)
             
+            save_button.textContent = "Upload Declined............"
         }
      
 
@@ -189,15 +190,15 @@ const avatar_upload=(event)=>{
         if(avatar_response.ok){
         const data = await avatar_response.json()
         setAvatar(data.secure_url)
-        save_button.textContent = "succesful"
+        save_A_button.textContent = "succesful"
         // setSaveImage(true)
         }
         else{
-            console.log("bad")
+            save_A_button.textContent = "Upload Declined............"
            
         }
         }catch(error){
-            console.log(error)
+            save_A_button.textContent = "Upload Declined............"
             
         }
      
@@ -291,9 +292,16 @@ function timeline_message_handler(event){
  
 };
 
-
+const [timeline_file, settimeline_file]= useState(false)
 function timeline_media_handler(event){
-    setTimeline_media(event.target.value);
+    settimeline_file(true)
+    let file = event.target.files[0];
+    let reader = new FileReader();
+    reader.onloadend = ()=>{
+        setTimeline_media(reader.result);
+    }
+     reader.readAsDataURL(file);
+    
     
     
 };
@@ -305,8 +313,34 @@ function users_message_handler(event, id){
     setUsers_timeline_message({"event":event.target.value, "id":id});
 };
 
+
 const timeline_api =async(e)=>{
-    e.preventDefault()
+    if(timeline_file){
+       
+            const formData = new FormData();
+            formData.append("file", Timeline_media)
+            formData.append("upload_preset", "Alert_files");
+          
+            
+         
+            const response = await fetch("https://api.cloudinary.com/v1_1/dxsvadizj/image/upload",{
+                method: "POST",
+                body:formData,
+            })
+    
+            
+            if(response.ok){
+            const data = await response.json()
+            setTimeline_media(data.secure_url)
+            alert("success")
+           
+            }
+           
+        }else{
+            alert("wrong")
+        }
+        
+   
     try{
         const response = await fetch("http://127.0.0.1:8000//timeline_update",{
             method:"POST",
@@ -349,14 +383,53 @@ const timeline_api_response =async()=>{
    
 }
 const [Messages_toggle, setMessages_toggle] = useState(false)
+
+const [message_file, setmessage_file]= useState(false)
+const [message_media, setmessage_media]= useState("")
+function message_media_handler(event){
+    setmessage_file(true)
+    let file = event.target.files[0];
+    let reader = new FileReader();
+    reader.onloadend = ()=>{
+        setmessage_media(reader.result);
+    }
+     reader.readAsDataURL(file);
+    
+    
+    
+};
 const timeline_messages = async(id)=>{
     let message = Users_timeline_message.event
+    if(message_file){
+       
+        const formData = new FormData();
+        formData.append("file", message_media)
+        formData.append("upload_preset", "Alert_files");
+      
+        
+     
+        const response = await fetch("https://api.cloudinary.com/v1_1/dxsvadizj/image/upload",{
+            method: "POST",
+            body:formData,
+        })
+
+        
+        if(response.ok){
+        const data = await response.json()
+        setmessage_media(data.secure_url)
+        alert("success")
+       
+        }
+       
+    }else{
+        alert("wrong")
+    }
     
     try{
         const response = await fetch("http://127.0.0.1:8000//timeline_messages",{
             method:"POST",
             headers:{"Content-Type": "application/json"},
-            body: JSON.stringify({"username":user_username,"id":id ,"message":message})
+            body: JSON.stringify({"username":user_username,"id":id ,"message":message, "media":message_media})
         })
         if(response.ok){
             setUsers_timeline_message("")
@@ -501,10 +574,8 @@ const UserDetailsValues = {
       timeline_messages,
       timeline_messages_res,
       Messages_toggle,
-      Post_res
-     
-      
-     
+      Post_res,
+      message_media_handler
     }
 //https://hollarteju1.pythonanywhere.com
     return(

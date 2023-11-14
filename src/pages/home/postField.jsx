@@ -3,7 +3,16 @@ import { useState, useContext } from "react";
 import { UserDetailsContext } from '../../user_details';
 
 const Post=()=>{
-   let {Token,Edit_user, Image, Avatar,Bio,user_edit_value,user_username}=  useContext(UserDetailsContext)
+   let {
+    Token,
+    Edit_user,
+    Image,
+    Avatar,
+    Bio,
+    user_edit_value,
+    user_username
+    }=  useContext(UserDetailsContext)
+    
     return(
         <div  className='user-side-bar'>
             <div className='user-info'>

@@ -6,9 +6,24 @@ import { LocationContext } from "../../locationsContext";
 import { UserDetailsContext } from '../../user_details';
 
 const Emergency=()=>{
-   
+     
     const {emergencyMap, mapFunction,api,emergencyBtn}=useContext(LocationContext)
     const {toggleMap, Map} = useContext(UserDetailsContext)
+    const [long, setlong] = useState("")
+    const [lat, setlat] = useState("")
+    function map(){
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition((position)=>{
+                const latitude = position.coords.latitude
+                const longtitude = position.coords.longitude
+                setlong(longtitude)
+                setlat(latitude)
+            })
+        }else{
+            console.log("website not supported")
+        }
+        console.log(`${lat} ${long}`)
+    }
     return(
         <div className="Emergency-container " >
             <div className="emergency-btn-container mt-3">

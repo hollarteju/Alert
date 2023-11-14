@@ -24,7 +24,8 @@ function TimeLineUpdate(){
         Users_msg_toggle,
         Messages_toggle,
         timeline_messages_res,
-        Post_res
+        Post_res,
+        message_media_handler
         
        } = useContext(UserDetailsContext);
     
@@ -117,13 +118,17 @@ function TimeLineUpdate(){
              
                          <div className="post-textarea-icons" style={{justifyContent:"space-between", alignItems:"center", color:"gray"}}>
                              <div>
-                                 <i className="bx bx-image"></i>
+                                <label class="cursor-pointer">
+                                    <i className="bx bx-image" ></i>
+                                    <input type="file" class="d-none" onChange={message_media_handler} />
+                                </label>
+                                 
                                  <i className="bx bx-video"></i>
                                  <i className="bx bx-camera"></i>
                              
                              </div>
                      
-                             <i className="bx bx-send" onClick={()=>timeline_messages(data.user_id)}>send</i>
+                             <i className="bx bx-send" onClick={()=>timeline_messages(data.user_id)}></i>
                          </div>
                      </div>
                     

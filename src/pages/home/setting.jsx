@@ -92,7 +92,7 @@ export const Setting=()=>{
                                             <div className="d-flex ms-5">
                                                 <label class="col-xl-10 ms-4" style={{cursor:"pointer"}}>
                                                     
-                                                    <span class="mx-5" id="pics_click">change avatar picture</span>
+                                                    <span class="mx-5" id="pics_A_click">change avatar picture</span>
                                                     <input class="d-none " type="file" accept="image/*" name="img"  onChange={avatar_upload} />
                                                 
                                                 </label>
