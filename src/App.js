@@ -3,7 +3,7 @@ import "./main.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from './component/Navbar';
 import SignUp from './pages/signup/signup';
-import { BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
+import { HashRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
 import { LocationContextProvider } from './locationsContext';
 import { UserDetailsProvider } from './user_details';
 import Setting from './pages/home/setting';
@@ -18,7 +18,7 @@ function App() {
     <div className='app-container'>
       <LocationContextProvider>
       <UserDetailsProvider>
-        <Router basename='/Alert'>
+        <Router>
           <Navbar/>
             <Routes>
             
