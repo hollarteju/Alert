@@ -63,7 +63,7 @@ const login =async(e)=>{
     const Error = {...Access_login};
     try{
         
-        const response = await fetch("hollarteju.pythonanywhere.com/token",{
+        const response = await fetch("https://hollarteju.pythonanywhere.com/token",{
         method:"POST",
         headers:{"Content-Type": "application/json"},
         body: JSON.stringify(login_data)
@@ -210,7 +210,7 @@ const avatar_upload=(event)=>{
         } 
         try{
             
-            const response = await fetch("hollarteju.pythonanywhere.com/save_images",{
+            const response = await fetch("https://hollarteju.pythonanywhere.com/save_images",{
             method:"POST",
             headers:{"Content-Type": "application/json"},
             body: JSON.stringify({"image":Image, "username":user_username, "user":change_username, "avatar":Avatar, "bio":change_bio})
@@ -242,7 +242,7 @@ const avatar_upload=(event)=>{
     const profile_picture =async()=>{
             let username = localStorage.getItem("user")?localStorage.getItem("user"):Token.username
           try{
-              const response = await fetch("hollarteju.pythonanywhere.com/profile_image_response",{
+              const response = await fetch("https://hollarteju.pythonanywhere.com/profile_image_response",{
                   method:"POST",
                   headers:{"Content-Type": "application/json"},
                   body: JSON.stringify({"username":username})
@@ -324,7 +324,7 @@ const timeline_api =async(e)=>{
         
    
     try{
-        const response = await fetch("hollarteju.pythonanywhere.com/timeline_update",{
+        const response = await fetch("https://hollarteju.pythonanywhere.com/timeline_update",{
             method:"POST",
             headers:{"Content-Type": "application/json"},
             body: JSON.stringify({"username":user_username,
@@ -347,7 +347,7 @@ const timeline_api =async(e)=>{
 
 const timeline_api_response =async()=>{
     try{
-        const response = await fetch("hollarteju.pythonanywhere.com/timeline_res",{
+        const response = await fetch("https://hollarteju.pythonanywhere.com/timeline_res",{
             method:"POST",
             headers:{"Content-Type": "application/json"}
             // body: JSON.stringify({"username":user_username})
@@ -408,7 +408,7 @@ const timeline_messages = async(id)=>{
     }
     
     try{
-        const response = await fetch("hollarteju.pythonanywhere.com/timeline_messages",{
+        const response = await fetch("https://hollarteju.pythonanywhere.com/timeline_messages",{
             method:"POST",
             headers:{"Content-Type": "application/json"},
             body: JSON.stringify({"username":user_username,"id":id ,"message":message, "media":message_media})
@@ -429,7 +429,7 @@ const timeline_messages_res = async(id)=>{
     setMessages_toggle(id)
     setPost_res([])
     try{
-        const response = await fetch("hollarteju.pythonanywhere.com/timeline_message_response",{
+        const response = await fetch("https://hollarteju.pythonanywhere.com/timeline_message_response",{
             method:"POST",
             headers:{"Content-Type": "application/json"},
             body: JSON.stringify({"id":id })
@@ -451,7 +451,7 @@ const timeline_messages_res = async(id)=>{
 const timeline_reaction = async(id,reaction)=>{
    
     try{
-        const response = await fetch("hollarteju.pythonanywhere.com/reaction_update",{
+        const response = await fetch("https://hollarteju.pythonanywhere.com/reaction_update",{
             method:"POST",
             headers:{"Content-Type": "application/json"},
             body: JSON.stringify({"username":user_username,"id":id ,"reaction":reaction})
@@ -472,7 +472,7 @@ const timeline_reaction = async(id,reaction)=>{
 
 const user_reaction = async()=>{
     try{
-        let response = await fetch("hollarteju.pythonanywhere.com/user_reaction",{
+        let response = await fetch("https://hollarteju.pythonanywhere.com/user_reaction",{
             method:"POST",
             headers:{"Content-Type": "application/json"},
         })

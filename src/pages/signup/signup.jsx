@@ -73,7 +73,7 @@ const SignUp=()=>{
        
         try{
             
-            const response = await fetch("hollarteju.pythonanywhere.com/register",{
+            const response = await fetch("https://hollarteju.pythonanywhere.com/register",{
             method:"POST",
             headers:{"Content-Type": "application/json"},
             body: JSON.stringify(registeration_data)
