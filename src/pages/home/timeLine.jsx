@@ -84,17 +84,10 @@ const Timeline=()=>{
                         
                         <div className="post-textarea-icons">
                             <label class="" style={{cursor:"pointer"}}>
-                                <i className="bx bxs-image" ></i>
-                                <input type="file" class="d-none" accept="image/*" onChange={timeline_media_handler}/>
+                                <i className="bx bxs-file-image" ></i>
+                                <input type="file" class="d-none" onChange={timeline_media_handler}/>
                             </label>
-                            <label class="" style={{cursor:"pointer"}}>
-                                <i className="bx bxs-video"></i>
-                                {/* <input type="file" class="d-none" onChange={timeline_media_handler}/> */}
-                            </label>
-                            <label class="" style={{cursor:"pointer"}}>
-                                <i className="bx bxs-camera"></i>
-                                {/* <input type="file" class="d-none" onChange={timeline_media_handler}/> */}
-                            </label>
+                           
                             <button onClick={timeline_api}>Post</button>
                         </div>
                     </div>

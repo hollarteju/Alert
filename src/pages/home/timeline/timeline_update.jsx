@@ -119,13 +119,10 @@ function TimeLineUpdate(){
                          <div className="post-textarea-icons" style={{justifyContent:"space-between", alignItems:"center", color:"gray"}}>
                              <div>
                                 <label class="cursor-pointer">
-                                    <i className="bx bx-image" ></i>
-                                    <input type="file" accept="image/*" class="d-none" onChange={message_media_handler} />
+                                    <i className="bx bxs-file-image" ></i>
+                                    <input type="file" class="d-none" onChange={message_media_handler} />
                                 </label>
-                                 
-                                 <i className="bx bx-video"></i>
-                                 <i className="bx bx-camera"></i>
-                             
+                               
                              </div>
                      
                              <i className="bx bx-send" onClick={()=>timeline_messages(data.user_id)}></i>
