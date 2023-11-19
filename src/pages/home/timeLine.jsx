@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import {Swiper,SwiperSlide} from "swiper/react";
 import "swiper/swiper-bundle.css";
 import{ useState} from "react";
 import {LocationContext} from "../../locationsContext"
 import { UserDetailsContext } from "../../user_details";
 import TimeLineUpdate from "./timeline/timeline_update";
+import cloudinary from 'cloudinary-core';
 
 
 const Timeline=()=>{
@@ -34,11 +33,42 @@ const Timeline=()=>{
             timeline_reaction
            } = useContext(UserDetailsContext)
 
-    // console.log(countryValue)
+           const [imageURL, setImageURL] = useState('');
+           const [media_active, setMedia_active]= useState(false)
+           const media = useRef(null)
+           const capture=(e)=>{
+                setImageURL(e.target.value)
+                setMedia_active(true);
+                alert("good")
+           }
+           const handleCaptureImage = async () => { navigator.mediaDevices.getUserMedia({video:true}).then((stream)=>{
+                media.current.srcObject = stream
+                alert("good")
+            })
+            //  // Code to capture image, e.g., using the device camera
+         
+            //  // Upload the captured image to Cloudinary
+            //  const cloudinaryInstance = new cloudinary.Cloudinary({ cloud_name: 'dxsvadizj' });
+         
+            //  // Replace 'YOUR_UPLOAD_PRESET' with your Cloudinary upload preset
+            //  const uploadPreset = 'Alert_files';
+         
+            //  const response = await cloudinaryInstance.uploader.upload(imageURL, {
+            //    upload_preset: uploadPreset,
+            //  });
+         
+            //  // Set the Cloudinary URL to state or perform other actions
+            //  setImageURL(response.secure_url);
+           };
+         
+                     
 
         
     return(
         <div className="post-field-container" style={{position:"relative", boxSizing:"border-box"}}>
+            <div>
+                <video ref={media} width="400" height="300" autoPlay class="d-none"></video>
+            </div>
             <div className="user-profile-conatiner">
                 <div className="user-profile-layer">
                     <div className="profile-layer d-flex" style={{justifyContent:"space-between"}}>
@@ -54,16 +84,16 @@ const Timeline=()=>{
                         
                         <div className="post-textarea-icons">
                             <label class="" style={{cursor:"pointer"}}>
-                                <i className="bx bxs-image"></i>
-                                <input type="file" class="d-none" onChange={timeline_media_handler}/>
+                                <i className="bx bxs-image" ></i>
+                                <input type="file" class="d-none" accept="image/*" onChange={timeline_media_handler}/>
                             </label>
                             <label class="" style={{cursor:"pointer"}}>
                                 <i className="bx bxs-video"></i>
-                                <input type="file" class="d-none" onChange={timeline_media_handler}/>
+                                {/* <input type="file" class="d-none" onChange={timeline_media_handler}/> */}
                             </label>
                             <label class="" style={{cursor:"pointer"}}>
                                 <i className="bx bxs-camera"></i>
-                                <input type="file" class="d-none" onChange={timeline_media_handler}/>
+                                {/* <input type="file" class="d-none" onChange={timeline_media_handler}/> */}
                             </label>
                             <button onClick={timeline_api}>Post</button>
                         </div>
@@ -73,7 +103,7 @@ const Timeline=()=>{
             <div className="post-field-layer ">
                 
                 <div className="posts-container" >
-                    <TimeLineUpdate/>
+                    <TimeLineUpdate media={handleCaptureImage }/>
                
             </div>
         </div>

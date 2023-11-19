@@ -82,18 +82,18 @@ function TimeLineUpdate(){
              <div className="posts-icons-container">
                  <div className="posts-icons-layer">
                      <i className={data.reacter.includes(`${user_username}-witness`) ?"bx bxs-show text-success":"bx bx-show "}id="witness"  onClick={()=>timeline_reaction(data.user_id, "witness")}>
-                        <icon class="d-none d-md-block text-dark">witness</icon>
+                        <icon class="d-none d-lg-block text-dark">witness</icon>
                         <span >{data.witness}</span>
                     </i>
                      <i className={data.reacter.includes(`${user_username}-like`) ?"bx bxs-like text-primary":"bx bx-like "} id="like" onClick={()=>timeline_reaction(data.user_id, "like")}>
-                        <icon class="d-none d-md-block text-dark">Confirmed </icon>
+                        <icon class="d-none d-lg-block text-dark">Confirmed </icon>
                         <span>{data.like}</span>
                     </i>
                      <i className={data.reacter.includes(`${user_username}-dislike`) ?"bx bxs-dislike text-danger":"bx bx-dislike "} id="dislike" onClick={()=>timeline_reaction(data.user_id, "dislike")}>
-                        <icon class="d-none d-md-block text-dark">Reject</icon>
+                        <icon class="d-none d-lg-block text-dark">Reject</icon>
                         <span>{data.dislike}</span>
                     </i>
-                     <i className="bx bx-message " onClick={()=>timeline_messages_res(data.user_id)}><icon class="d-none d-md-block">Message </icon></i>
+                     <i className="bx bx-message " onClick={()=>timeline_messages_res(data.user_id)}><icon class="d-none d-lg-block">Message </icon></i>
                  </div>
              </div>
                 <Messages toggle={Messages_toggle} id={data.user_id} messages = {Post_res}/>
@@ -120,7 +120,7 @@ function TimeLineUpdate(){
                              <div>
                                 <label class="cursor-pointer">
                                     <i className="bx bx-image" ></i>
-                                    <input type="file" class="d-none" onChange={message_media_handler} />
+                                    <input type="file" accept="image/*" class="d-none" onChange={message_media_handler} />
                                 </label>
                                  
                                  <i className="bx bx-video"></i>

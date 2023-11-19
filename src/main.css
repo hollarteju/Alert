@@ -538,6 +538,16 @@ Link {
   width: 75%;
 }
 
+.s_txtarea textarea {
+  resize: none !important;
+}
+.s_txtarea span {
+  height: 2rem;
+  font-size: small;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @media screen and (max-width: 770px) {
   .post-field-container, .post-field-container .post-field-layer, .post-field-container .post-field-layer .post-field-layer {
     grid-column: 1/4;
@@ -550,9 +560,10 @@ Link {
   }
   .home-layer {
     width: 100% !important;
+    top: 3rem !important;
   }
   .setting_con {
-    margin-top: 15rem;
+    padding-top: 8rem;
   }
 }
 @media screen and (max-width: 576px) {
